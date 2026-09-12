@@ -1,18 +1,1423 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pick Me Behavior</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<style>
+  @font-face{font-family:'Tiempos Headline';src:url('uploads/TiemposHeadline-Light.ttf') format('truetype');font-weight:300;font-display:swap}
+  @font-face{font-family:'Tiempos Headline';src:url('uploads/TiemposHeadline-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+  @font-face{font-family:'Tiempos Headline';src:url('uploads/TiemposHeadline-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+  @font-face{font-family:'Tiempos Headline';src:url('uploads/TiemposHeadline-Semibold.ttf') format('truetype');font-weight:600;font-display:swap}
+  *{box-sizing:border-box}
+  body{margin:0;background:#F0EEE6;font-family:'Hanken Grotesk',system-ui,sans-serif;color:#191917;-webkit-font-smoothing:antialiased}
+  a{color:#BD5D3A}a:hover{color:#9c4727}
+  input,textarea,button{font-family:inherit}
+  input,textarea{outline:none}
+  input::placeholder,textarea::placeholder{color:#A39E92}
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-thumb{background:#D8D3C6;border-radius:9px}
+  @keyframes aRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes aPop{0%{transform:scale(.82);opacity:0}55%{transform:scale(1.06)}100%{transform:scale(1);opacity:1}}
+  @keyframes aSpin{to{transform:rotate(360deg)}}
+  @keyframes aPulse{0%,100%{opacity:.3}50%{opacity:1}}
+  @keyframes aShine{0%{transform:translateX(-140%)}100%{transform:translateX(420%)}}
+  @keyframes aConfetti{0%{transform:translateY(-10px) rotate(0);opacity:1}100%{transform:translateY(260px) rotate(540deg);opacity:0}}
+  @keyframes aFlame{0%,100%{transform:scale(1) rotate(-2deg)}50%{transform:scale(1.1) rotate(2deg)}}
+  @keyframes aCount{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F0EEE6">
+
+<!-- ═══════════ LANDING ═══════════ -->
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div>
+  <div style="max-width:1140px;margin:0 auto;padding:0 30px">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:24px 0">
+      <div style="display:flex;align-items:center;gap:10px;font-size:19px;letter-spacing:-.01em;font-family:'Tiempos Headline',Georgia,serif;font-weight:500">
+        <span style="width:25px;height:25px;border-radius:6px;background:#BD5D3A;color:#F0EEE6;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:'Hanken Grotesk',sans-serif;font-weight:700">◆</span>ShypIt
+      </div>
+      <div style="display:flex;align-items:center;gap:22px">
+        <span onClick="{{ goAuth }}" style="font-size:14.5px;color:#6B665C;cursor:pointer" style-hover="color:#191917">Log in</span>
+        <span onClick="{{ goBuilder }}" style="cursor:pointer;background:#191917;color:#F0EEE6;font-size:14.5px;font-weight:500;padding:11px 20px;border-radius:9px" style-hover="background:#BD5D3A">Build my plan</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- hero -->
+  <div style="max-width:1140px;margin:0 auto;padding:52px 30px 46px;display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,.98fr);gap:60px;align-items:center">
+    <div style="animation:aRise .65s ease both">
+      <div style="display:inline-flex;align-items:center;gap:9px;border:1px solid #DDD8CB;border-radius:100px;padding:7px 14px;font-size:12.5px;color:#6B665C;margin-bottom:26px;background:#F7F5EF">
+        <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 2.4s infinite"></span>For builders who keep almost finishing
+      </div>
+      <h1 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:66px;line-height:1.03;letter-spacing:-.025em;margin:0 0 24px">You keep starting.<br><span style="color:#A39E92">You never ship.</span></h1>
+      <p style="font-size:17.5px;line-height:1.62;color:#57534A;margin:0 0 16px;max-width:470px;text-wrap:pretty">Half-built projects in every folder. Not because you can't build it, but because "launch" was never broken down into something you could finish today.</p>
+      <p style="font-size:17.5px;line-height:1.62;color:#191917;margin:0 0 32px;max-width:470px;text-wrap:pretty">ShypIt turns your idea, or your existing brief, into a dated plan. One task a day. Yours to edit.</p>
+      <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+        <span onClick="{{ goBuilder }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:16.5px;padding:16px 28px;border-radius:11px" style-hover="background:#a44c2c">Build my plan — free →</span>
+        <span style="font-size:13.5px;color:#8A857A">No card. Ready in a minute.</span>
+      </div>
+    </div>
+
+    <div style="animation:aRise .75s .1s ease both">
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:18px;overflow:hidden;box-shadow:0 26px 60px -32px rgba(25,25,23,.35)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #E5E0D3">
+          <div style="font-size:13.5px;font-weight:600">{{ sampleName }} · {{ sampleLen }}</div>
+          <div style="font-size:11.5px;color:#BD5D3A;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 2s infinite"></span>sample</div>
+        </div>
+        <div style="padding:12px 16px 16px;display:flex;flex-direction:column;gap:7px">
+          <sc-for list="{{ sampleRows }}" as="row" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:11px;background:{{ row.bg }};border:1px solid {{ row.bd }}">
+              <span style="width:46px;flex:none;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:{{ row.dayFg }}">Day {{ row.day }}</span>
+              <span style="width:22px;height:22px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;background:{{ row.chipBg }};color:{{ row.chipFg }}">{{ row.mark }}</span>
+              <span style="font-size:13.5px;color:{{ row.fg }};font-weight:{{ row.fw }}">{{ row.label }}</span>
+              <span style="margin-left:auto;font-size:11px;color:#A39E92">{{ row.meta }}</span>
+            </div>
+          </sc-for>
+          <div onClick="{{ cycleSample }}" style="cursor:pointer;text-align:center;font-size:12.5px;color:#6B665C;padding:9px;border-radius:10px;border:1px dashed #DDD8CB;margin-top:4px" style-hover="color:#BD5D3A;border-color:#BD5D3A">another example ↻</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scroll stage: days land in the card one by one -->
+  <div ref="{{ stageRef }}" style="position:relative;height:420vh;border-top:1px solid #E5E0D3;background:#F7F5EF">
+    <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
+      <div style="width:100%;max-width:1140px;margin:0 auto;padding:0 30px;display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:56px;align-items:center">
+
+        <div>
+          <div style="font-size:11.5px;letter-spacing:.16em;color:#8A857A;text-transform:uppercase;margin-bottom:18px">Day by day</div>
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:44px;line-height:1.06;letter-spacing:-.025em;margin-bottom:18px;text-wrap:pretty">{{ stageHeading }}</div>
+          <p style="font-size:16px;line-height:1.6;color:#57534A;margin:0 0 26px;max-width:380px;text-wrap:pretty">{{ stageBody }}</p>
+          <div style="display:flex;flex-direction:column;gap:9px;max-width:330px">
+            <sc-for list="{{ stagePhases }}" as="p" hint-placeholder-count="4">
+              <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:10px;background:{{ p.bg }};border:1px solid {{ p.bd }};transition:background .45s ease,border-color .45s ease">
+                <span style="width:20px;height:20px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;background:{{ p.chipBg }};color:{{ p.chipFg }};transition:background .45s ease">{{ p.num }}</span>
+                <span style="font-size:13.5px;font-weight:{{ p.fw }};color:{{ p.fg }};transition:color .45s ease">{{ p.label }}</span>
+                <span style="margin-left:auto;font-size:11px;color:#A39E92">{{ p.meta }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="position:relative">
+          <div style="background:#F0EEE6;border:1px solid #DDD8CB;border-radius:20px;box-shadow:0 30px 70px -34px rgba(25,25,23,.4);overflow:hidden">
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:17px 20px;border-bottom:1px solid #E5E0D3">
+              <div style="font-size:13.5px;font-weight:600">AI recipe app · 15 days</div>
+              <div style="font-size:11.5px;color:#BD5D3A">{{ stageCounter }}</div>
+            </div>
+
+            <div style="padding:14px 20px 10px;display:flex;flex-direction:column;gap:8px;min-height:322px">
+              <sc-for list="{{ stageRows }}" as="r" hint-placeholder-count="6">
+                <div style="display:flex;align-items:center;gap:13px;padding:12px 13px;border-radius:12px;background:{{ r.bg }};border:1px solid {{ r.bd }};opacity:{{ r.op }};transform:{{ r.tf }};filter:{{ r.blur }};transition:background .4s ease,border-color .4s ease">
+                  <span style="width:46px;flex:none;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:{{ r.dayFg }}">Day {{ r.day }}</span>
+                  <span style="width:23px;height:23px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;background:{{ r.chipBg }};color:{{ r.chipFg }};transition:background .4s ease">{{ r.mark }}</span>
+                  <span style="font-size:13.5px;color:{{ r.fg }};font-weight:{{ r.fw }};line-height:1.3;text-decoration:{{ r.deco }}">{{ r.label }}</span>
+                  <span style="margin-left:auto;font-size:11px;color:#A39E92">{{ r.hours }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="padding:6px 20px 20px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+                <span style="font-size:11.5px;color:#8A857A">{{ stageBarLabel }}</span>
+                <span style="font-size:11.5px;color:#BD5D3A;font-weight:600">{{ stagePctLabel }}</span>
+              </div>
+              <div style="height:8px;background:#E0DBCE;border-radius:8px;overflow:hidden">
+                <div style="height:100%;background:#BD5D3A;border-radius:8px;transition:width .55s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;width:{{ stagePct }}%">
+                  <div style="position:absolute;top:0;bottom:0;width:34%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.55),rgba(255,255,255,0));animation:aShine 2.8s ease-in-out infinite"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none;opacity:{{ stampOp }};transform:{{ stampTf }};transition:opacity .5s ease,transform .5s cubic-bezier(.22,1,.36,1)">
+            <div style="background:#191917;color:#F0EEE6;border-radius:18px;padding:30px 38px;text-align:center;box-shadow:0 26px 60px -28px rgba(25,25,23,.6)">
+              <div style="font-size:38px;margin-bottom:8px">🚀</div>
+              <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:27px;letter-spacing:-.02em">Shipped on day 15</div>
+              <div style="font-size:13.5px;color:#A39E92;margin-top:7px">Fifteen days. Fifteen things done.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- how -->
+  <div style="background:#F7F5EF;border-top:1px solid #E5E0D3;border-bottom:1px solid #E5E0D3">
+    <div style="max-width:1140px;margin:0 auto;padding:54px 30px">
+      <div style="font-size:11.5px;letter-spacing:.16em;color:#8A857A;text-transform:uppercase;margin-bottom:28px">How it works</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px">
+        <div style="background:#F0EEE6;border:1px solid #E5E0D3;border-radius:15px;padding:24px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:26px;color:#BD5D3A;margin-bottom:14px">01</div>
+          <div style="font-size:17px;font-weight:600;margin-bottom:8px">Tell us, or upload it</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#57534A">Answer four questions, or drop in the brief, deck or spec you already wrote.</div>
+        </div>
+        <div style="background:#F0EEE6;border:1px solid #E5E0D3;border-radius:15px;padding:24px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:26px;color:#BD5D3A;margin-bottom:14px">02</div>
+          <div style="font-size:17px;font-weight:600;margin-bottom:8px">Get a dated plan</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#57534A">One week to two months, split into phases, one task per numbered day. Edit any of it.</div>
+        </div>
+        <div style="background:#F0EEE6;border:1px solid #E5E0D3;border-radius:15px;padding:24px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:26px;color:#BD5D3A;margin-bottom:14px">03</div>
+          <div style="font-size:17px;font-weight:600;margin-bottom:8px">Ship one thing a day</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#57534A">Log what happened, attach proof, keep the streak. Miss a day and the plan bends.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="max-width:1140px;margin:0 auto;padding:56px 30px 80px">
+    <div style="background:#191917;border-radius:20px;padding:52px 36px;text-align:center;color:#F0EEE6">
+      <div style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:40px;letter-spacing:-.02em;margin-bottom:12px">Your launch has a date now.</div>
+      <div style="font-size:15.5px;color:#A39E92;margin-bottom:30px">Pick how long you've got and start today.</div>
+      <span onClick="{{ goBuilder }}" style="cursor:pointer;display:inline-block;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:16.5px;padding:16px 32px;border-radius:11px" style-hover="background:#d06c46">Build my plan →</span>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ═══════════ AUTH ═══════════ -->
+<sc-if value="{{ isAuth }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px">
+  <div style="width:100%;max-width:390px;animation:aRise .45s ease both">
+    <div onClick="{{ goLanding }}" style="cursor:pointer;display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:28px;font-family:'Tiempos Headline',Georgia,serif;font-size:19px;font-weight:500">
+      <span style="width:25px;height:25px;border-radius:6px;background:#BD5D3A;color:#F0EEE6;display:flex;align-items:center;justify-content:center;font-size:13px;font-family:'Hanken Grotesk',sans-serif;font-weight:700">◆</span>ShypIt
+    </div>
+    <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:18px;padding:26px">
+      <div style="display:flex;background:#EBE8DE;border-radius:10px;padding:4px;margin-bottom:22px">
+        <div onClick="{{ setLogin }}" style="flex:1;text-align:center;padding:9px;font-size:13.5px;font-weight:500;border-radius:7px;cursor:pointer;background:{{ loginTabBg }};color:{{ loginTabFg }}">Log in</div>
+        <div onClick="{{ setSignup }}" style="flex:1;text-align:center;padding:9px;font-size:13.5px;font-weight:500;border-radius:7px;cursor:pointer;background:{{ signupTabBg }};color:{{ signupTabFg }}">Sign up</div>
+      </div>
+      <div style="font-size:12.5px;color:#6B665C;margin-bottom:7px">Email</div>
+      <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="you@domain.com" style="width:100%;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:13px 14px;color:#191917;font-size:14.5px;margin-bottom:16px" style-focus="border-color:#BD5D3A">
+      <div style="font-size:12.5px;color:#6B665C;margin-bottom:7px">Password</div>
+      <input type="password" value="{{ password }}" onChange="{{ onPassword }}" placeholder="••••••••" style="width:100%;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:13px 14px;color:#191917;font-size:14.5px" style-focus="border-color:#BD5D3A">
+      <sc-if value="{{ authError }}">
+        <div style="font-size:12.5px;color:#B3402A;margin-top:10px">{{ authError }}</div>
+      </sc-if>
+      <div onClick="{{ submitAuth }}" style="cursor:pointer;margin-top:20px;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:15.5px;padding:14px;border-radius:10px;text-align:center" style-hover="background:#a44c2c">{{ authCta }}</div>
+      <div style="display:flex;align-items:center;gap:12px;margin:20px 0;color:#A39E92;font-size:12px">
+        <span style="flex:1;height:1px;background:#DDD8CB"></span>or<span style="flex:1;height:1px;background:#DDD8CB"></span>
+      </div>
+      <div onClick="{{ submitAuth }}" style="cursor:pointer;border:1px solid #DDD8CB;border-radius:10px;padding:13px;text-align:center;font-size:14.5px" style-hover="border-color:#191917">Continue with Google</div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:#A39E92;margin-top:16px">Any email and password works here.</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ═══════════ BUILDER ═══════════ -->
+<sc-if value="{{ isBuilder }}">
+<div style="min-height:100vh;display:flex;align-items:flex-start;justify-content:center;padding:34px 24px 60px">
+  <div style="width:100%;max-width:580px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div onClick="{{ goLanding }}" style="cursor:pointer;display:flex;align-items:center;gap:9px;font-family:'Tiempos Headline',Georgia,serif;font-size:17px;font-weight:500">
+        <span style="width:23px;height:23px;border-radius:6px;background:#BD5D3A;color:#F0EEE6;display:flex;align-items:center;justify-content:center;font-size:12px;font-family:'Hanken Grotesk',sans-serif;font-weight:700">◆</span>ShypIt
+      </div>
+      <div style="font-size:12.5px;color:#8A857A">{{ stepLabel }}</div>
+    </div>
+    <div style="height:3px;background:#E0DBCE;border-radius:3px;overflow:hidden;margin-bottom:34px">
+      <div style="height:100%;background:#BD5D3A;transition:width .7s cubic-bezier(.22,1,.36,1);width:{{ stepPct }}%"></div>
+    </div>
+
+    <sc-if value="{{ atStep1 }}">
+    <div style="animation:aRise .4s ease both">
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:34px;letter-spacing:-.02em;margin:0 0 10px">What are you building?</h2>
+      <p style="color:#57534A;font-size:15.5px;line-height:1.55;margin:0 0 22px">One line is enough. Or skip the typing and upload what you already wrote.</p>
+      <input value="{{ idea }}" onChange="{{ onIdea }}" placeholder="e.g. A habit tracker for runners" style="width:100%;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:12px;padding:16px;color:#191917;font-size:16px" style-focus="border-color:#BD5D3A">
+
+      <div style="margin-top:16px;background:#F7F5EF;border:1px dashed #DDD8CB;border-radius:14px;padding:18px">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <span style="width:32px;height:32px;border-radius:9px;background:#EBE8DE;display:flex;align-items:center;justify-content:center;font-size:15px">📄</span>
+          <div>
+            <div style="font-size:14px;font-weight:600">Have a brief, deck or spec?</div>
+            <div style="font-size:12.5px;color:#8A857A">PDF, DOCX, PPTX, TXT or MD — we'll read it and build the plan from it.</div>
+          </div>
+        </div>
+        <label style="display:block;cursor:pointer">
+          <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.txt,.md,.rtf" onChange="{{ onBriefFile }}" style="display:none">
+          <span style="display:block;text-align:center;border:1px solid #DDD8CB;border-radius:10px;padding:12px;font-size:13.5px;background:#F0EEE6" style-hover="border-color:#BD5D3A;color:#BD5D3A">Choose a file</span>
+        </label>
+        <sc-if value="{{ briefName }}">
+          <div style="margin-top:12px;display:flex;align-items:center;gap:10px;background:#EBE8DE;border-radius:10px;padding:11px 13px">
+            <span style="font-size:14px">✓</span>
+            <div style="min-width:0">
+              <div style="font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ briefName }}</div>
+              <div style="font-size:11.5px;color:#8A857A">{{ briefStatus }}</div>
+            </div>
+            <span onClick="{{ clearBrief }}" style="margin-left:auto;cursor:pointer;font-size:13px;color:#8A857A">Remove</span>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ atStep2 }}">
+    <div style="animation:aRise .4s ease both">
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:34px;letter-spacing:-.02em;margin:0 0 10px">What kind of product?</h2>
+      <p style="color:#57534A;font-size:15.5px;margin:0 0 22px">Pick as many as apply — web and mobile together is normal.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+        <sc-for list="{{ typeOptions }}" as="opt" hint-placeholder-count="6">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:15px;display:flex;gap:12px;align-items:flex-start">
+            <span style="width:19px;height:19px;border-radius:6px;flex:none;margin-top:1px;border:1.5px solid {{ opt.boxBd }};background:{{ opt.boxBg }};color:#F7F5EF;display:flex;align-items:center;justify-content:center;font-size:11px">{{ opt.mark }}</span>
+            <div style="min-width:0">
+              <div style="font-size:14.5px;font-weight:600;margin-bottom:4px">{{ opt.label }}</div>
+              <div style="font-size:12.5px;color:#8A857A;line-height:1.45">{{ opt.hint }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font-size:12.5px;color:#8A857A;margin-top:14px">{{ typeSummary }}</div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ atStep3 }}">
+    <div style="animation:aRise .4s ease both">
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:34px;letter-spacing:-.02em;margin:0 0 10px">Where are you now?</h2>
+      <p style="color:#57534A;font-size:15.5px;margin:0 0 22px">So we don't hand you tasks you finished last month.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ stageOptions }}" as="opt" hint-placeholder-count="4">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;display:flex;align-items:center;gap:14px;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:15px 16px">
+            <span style="width:18px;height:18px;border-radius:50%;flex:none;border:1.5px solid {{ opt.dot }};background:{{ opt.dotFill }};box-shadow:inset 0 0 0 3px #F7F5EF"></span>
+            <span style="font-size:15px;font-weight:500">{{ opt.label }}</span>
+            <span style="margin-left:auto;font-size:12px;color:#A39E92">{{ opt.hint }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ atStep4 }}">
+    <div style="animation:aRise .4s ease both">
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:34px;letter-spacing:-.02em;margin:0 0 10px">How much time have you got?</h2>
+      <p style="color:#57534A;font-size:15.5px;margin:0 0 24px">Be honest about the hours. An over-packed plan is what kills momentum.</p>
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:15px;padding:20px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px">
+          <span style="font-size:14px;color:#57534A">Hours a day</span>
+          <span style="font-family:'Tiempos Headline',Georgia,serif;font-size:26px;color:#BD5D3A">{{ hoursLabel }}</span>
+        </div>
+        <input type="range" min="1" max="8" step="1" value="{{ hours }}" onChange="{{ onHours }}" style="width:100%;accent-color:#BD5D3A">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#A39E92;margin-top:6px"><span>1h</span><span>8h</span></div>
+      </div>
+      <div style="font-size:14px;color:#57534A;margin-bottom:10px">Plan length</div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px">
+        <sc-for list="{{ lengthOptions }}" as="opt" hint-placeholder-count="4">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:16px">
+            <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:21px;margin-bottom:5px">{{ opt.label }}</div>
+            <div style="font-size:12.5px;color:#8A857A;line-height:1.45">{{ opt.hint }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isGenerating }}">
+    <div style="text-align:center;padding:56px 0;animation:aRise .4s ease both">
+      <div style="width:48px;height:48px;border:3px solid #E0DBCE;border-top-color:#BD5D3A;border-radius:50%;margin:0 auto 24px;animation:aSpin .9s linear infinite"></div>
+      <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:23px;margin-bottom:8px">Writing your plan</div>
+      <div style="font-size:14px;color:#8A857A">{{ genMessage }}</div>
+    </div>
+    </sc-if>
+
+    <!-- REVIEW / EDIT -->
+    <sc-if value="{{ atReview }}">
+    <div style="animation:aRise .4s ease both">
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:31px;letter-spacing:-.02em;margin:0 0 8px">Here's your plan</h2>
+      <p style="color:#57534A;font-size:15px;line-height:1.55;margin:0 0 6px">{{ reviewSummary }}</p>
+      <p style="color:#8A857A;font-size:13.5px;margin:0 0 20px">Tap any day to edit it, add your own days, or ask Claude to reshape the whole thing.</p>
+
+      <sc-if value="{{ genFallback }}">
+        <div style="background:#F7F5EF;border:1px solid #E2C9A8;border-radius:12px;padding:13px 15px;font-size:13px;color:#57534A;margin-bottom:16px;line-height:1.5">Built from our standard template — the AI writer wasn't reachable. Everything below is still yours to edit.</div>
+      </sc-if>
+
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:15px;padding:6px;margin-bottom:16px;max-height:340px;overflow-y:auto">
+        <sc-for list="{{ reviewPhases }}" as="ph" hint-placeholder-count="4">
+          <div style="padding:12px 12px 6px">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+              <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#BD5D3A">{{ ph.title }}</div>
+              <div style="flex:1;height:1px;background:#E5E0D3"></div>
+              <div style="font-size:11px;color:#A39E92">{{ ph.range }}</div>
+            </div>
+            <sc-for list="{{ ph.tasks }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.edit }}" style="cursor:pointer;display:flex;gap:12px;align-items:center;padding:9px 10px;border-radius:9px" style-hover="background:#EBE8DE">
+                <span style="min-width:48px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#A39E92">Day {{ t.day }}</span>
+                <span style="font-size:13.5px;color:#191917;line-height:1.35">{{ t.title }}</span>
+                <span style="margin-left:auto;font-size:11.5px;color:#A39E92">{{ t.hours }}</span>
+              </div>
+            </sc-for>
+            <div onClick="{{ ph.add }}" style="cursor:pointer;font-size:12.5px;color:#8A857A;padding:9px 10px;border-radius:9px" style-hover="color:#BD5D3A">+ Add a day to this phase</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <!-- chat -->
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:15px;padding:16px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#8A857A;margin-bottom:14px">
+          <span style="width:18px;height:18px;border-radius:5px;background:#BD5D3A;color:#F7F5EF;display:flex;align-items:center;justify-content:center;font-size:10px">◆</span>Ask Claude to change the plan
+        </div>
+        <sc-for list="{{ chat }}" as="m" hint-placeholder-count="0">
+          <div style="display:flex;justify-content:{{ m.align }};margin-bottom:10px">
+            <div style="max-width:84%;font-size:13.5px;line-height:1.55;padding:11px 14px;border-radius:13px;background:{{ m.bg }};color:{{ m.fg }};border:1px solid {{ m.bd }};text-wrap:pretty">{{ m.text }}</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ chatBusy }}">
+          <div style="display:flex;gap:5px;padding:6px 4px 10px">
+            <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s infinite"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s .15s infinite"></span>
+            <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s .3s infinite"></span>
+          </div>
+        </sc-if>
+        <div style="display:flex;gap:9px;margin-top:4px">
+          <input value="{{ chatDraft }}" onChange="{{ onChatDraft }}" onKeyDown="{{ onChatKey }}" placeholder="Make the first week lighter…" style="flex:1;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:12px 13px;color:#191917;font-size:13.5px" style-focus="border-color:#BD5D3A">
+          <div onClick="{{ sendChat }}" style="cursor:pointer;background:#191917;color:#F0EEE6;border-radius:10px;padding:12px 16px;font-size:14px" style-hover="background:#BD5D3A">↑</div>
+        </div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:11px">
+          <sc-for list="{{ chatChips }}" as="c" hint-placeholder-count="3">
+            <span onClick="{{ c.run }}" style="cursor:pointer;border:1px solid #DDD8CB;border-radius:100px;padding:6px 12px;font-size:12px;color:#57534A" style-hover="border-color:#BD5D3A;color:#BD5D3A">{{ c.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div onClick="{{ commitPlan }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:16px;padding:15px;border-radius:11px;text-align:center" style-hover="background:#a44c2c">Start Day 1 →</div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ showBuilderNav }}">
+    <div style="display:flex;gap:12px;margin-top:28px">
+      <div onClick="{{ prevStep }}" style="cursor:pointer;border:1px solid #DDD8CB;border-radius:11px;padding:14px 22px;font-size:14.5px;color:#6B665C" style-hover="border-color:#191917;color:#191917">Back</div>
+      <div onClick="{{ nextStep }}" style="cursor:pointer;flex:1;background:{{ nextBg }};color:{{ nextFg }};font-weight:500;font-size:15.5px;padding:14px;border-radius:11px;text-align:center;opacity:{{ nextOpacity }}">{{ nextLabel }}</div>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ═══════════ APP ═══════════ -->
+<sc-if value="{{ isApp }}">
+<div style="min-height:100vh;display:flex;justify-content:center;padding:20px 16px 0">
+  <div style="width:100%;max-width:440px;padding-bottom:116px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 2px 16px">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="width:23px;height:23px;border-radius:6px;background:#BD5D3A;color:#F0EEE6;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700">◆</span>
+        <span style="font-size:13px;color:#6B665C">{{ dayHeader }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="display:flex;align-items:center;gap:6px;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:100px;padding:6px 12px;font-size:13px;font-weight:600">
+          <span style="display:inline-block;animation:aFlame 2.2s ease-in-out infinite">🔥</span>{{ streak }}
+        </div>
+        <div style="width:31px;height:31px;border-radius:50%;background:#E5E0D3;border:1px solid #DDD8CB"></div>
+      </div>
+    </div>
+
+    <!-- ── TODAY ── -->
+    <sc-if value="{{ tabToday }}">
+    <div style="animation:aRise .4s ease both">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px">
+        <div style="font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#8A857A">{{ phaseTheme }}</div>
+        <div style="font-size:12px;color:#8A857A">{{ progressLabel }}</div>
+      </div>
+      <div style="height:8px;background:#E0DBCE;border-radius:8px;overflow:hidden;margin-bottom:24px;position:relative">
+        <div style="height:100%;background:#BD5D3A;border-radius:8px;transition:width 1.15s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden;width:{{ progressPct }}%">
+          <div style="position:absolute;top:0;bottom:0;width:30%;background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.5),rgba(255,255,255,0));animation:aShine 2.8s ease-in-out infinite"></div>
+        </div>
+      </div>
+
+      <sc-if value="{{ launched }}">
+        <div style="background:#191917;color:#F0EEE6;border-radius:20px;padding:36px 24px;text-align:center;animation:aPop .55s ease both">
+          <div style="font-size:44px;margin-bottom:14px">🚀</div>
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:30px;margin-bottom:10px">It's live.</div>
+          <div style="font-size:14.5px;line-height:1.55;color:#A39E92;margin-bottom:26px;text-wrap:pretty">{{ launchLine }}</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div onClick="{{ goStreak }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:14.5px;padding:14px;border-radius:11px">See your badges</div>
+            <div onClick="{{ openChat }}" style="cursor:pointer;border:1px solid #3A3833;font-size:14px;padding:13px;border-radius:11px;color:#F0EEE6">Plan what's next</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ allDone }}">
+        <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:20px;padding:30px 24px;text-align:center;animation:aPop .5s ease both">
+          <div style="font-size:34px;margin-bottom:12px">✓</div>
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:25px;margin-bottom:8px">Day {{ currentDay }} is shipped.</div>
+          <div style="font-size:14px;color:#57534A;margin-bottom:22px">Streak at {{ streak }}. Tomorrow unlocks on its own — or pull it forward now.</div>
+          <div onClick="{{ pullForward }}" style="cursor:pointer;display:inline-block;background:#191917;color:#F0EEE6;font-weight:500;font-size:14.5px;padding:13px 22px;border-radius:11px">Pull tomorrow forward</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasToday }}">
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:20px;padding:24px;position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;bottom:0;left:0;width:3px;background:#BD5D3A"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#BD5D3A">Today · Day {{ currentDay }} of {{ totalDays }}</div>
+          <div style="font-size:12px;color:#A39E92">~{{ todayHours }}</div>
+        </div>
+        <div style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:29px;letter-spacing:-.02em;line-height:1.15;margin-bottom:12px;text-wrap:pretty">{{ todayTitle }}</div>
+        <div style="font-size:14.5px;line-height:1.6;color:#57534A;margin-bottom:18px;text-wrap:pretty">{{ todayBlurb }}</div>
+        <div style="font-size:12.5px;color:#8A857A;margin-bottom:20px"><span style="color:#BD5D3A;font-weight:600">{{ todaySubDone }}</span> of {{ todaySubTotal }} steps done</div>
+        <div onClick="{{ shipToday }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:15.5px;padding:15px;border-radius:11px;text-align:center;margin-bottom:11px" style-hover="background:#a44c2c">Mark shipped ✓</div>
+        <div style="display:flex;gap:10px">
+          <div onClick="{{ openTask }}" style="cursor:pointer;flex:1;border:1px solid #DDD8CB;border-radius:10px;padding:12px;text-align:center;font-size:13.5px" style-hover="border-color:#191917">Open steps</div>
+          <div onClick="{{ openHelp }}" style="cursor:pointer;flex:1;border:1px solid #DDD8CB;border-radius:10px;padding:12px;text-align:center;font-size:13.5px" style-hover="border-color:#191917">I'm stuck</div>
+        </div>
+        <div onClick="{{ openSkip }}" style="cursor:pointer;text-align:center;font-size:12.5px;color:#A39E92;margin-top:14px" style-hover="color:#57534A">Can't today →</div>
+      </div>
+      </sc-if>
+
+      <div style="display:flex;gap:10px;margin-top:16px">
+        <div style="flex:1;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:13px;padding:15px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:24px;animation:aCount .5s ease both">{{ doneCount }}</div>
+          <div style="font-size:11.5px;color:#8A857A;margin-top:3px">days shipped</div>
+        </div>
+        <div style="flex:1;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:13px;padding:15px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:24px">{{ daysLeft }}</div>
+          <div style="font-size:11.5px;color:#8A857A;margin-top:3px">to launch</div>
+        </div>
+        <sc-if value="{{ hasNextBadge }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:13px;padding:15px">
+          <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:24px">{{ nextBadgeIn }}</div>
+          <div style="font-size:11.5px;color:#8A857A;margin-top:3px">to next badge</div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ── PLAN ── -->
+    <sc-if value="{{ tabPlan }}">
+    <div style="animation:aRise .4s ease both">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+        <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:26px;letter-spacing:-.02em">{{ planTitle }}</div>
+        <div style="display:flex;background:#EBE8DE;border-radius:9px;padding:3px">
+          <div onClick="{{ setPhaseView }}" style="cursor:pointer;padding:7px 12px;font-size:12.5px;border-radius:7px;background:{{ phaseTabBg }};color:{{ phaseTabFg }}">This phase</div>
+          <div onClick="{{ setAllView }}" style="cursor:pointer;padding:7px 12px;font-size:12.5px;border-radius:7px;background:{{ allTabBg }};color:{{ allTabFg }}">All days</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ planPhases }}" as="ph" hint-placeholder-count="2">
+        <div style="margin-bottom:24px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div style="font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:{{ ph.color }}">{{ ph.title }}</div>
+            <div style="flex:1;height:1px;background:#E0DBCE"></div>
+            <div style="font-size:11.5px;color:#A39E92">{{ ph.count }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ ph.tasks }}" as="t" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:12px;padding:12px 13px;border-radius:13px;background:{{ t.bg }};border:1px solid {{ t.bd }}">
+                <span style="width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;background:{{ t.chipBg }};color:{{ t.chipFg }}">{{ t.mark }}</span>
+                <div onClick="{{ t.open }}" style="cursor:pointer;min-width:0;flex:1">
+                  <div style="font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:#A39E92;margin-bottom:3px">Day {{ t.day }} · {{ t.hours }}</div>
+                  <div style="font-size:14px;font-weight:{{ t.fw }};color:{{ t.fg }};line-height:1.3;text-decoration:{{ t.deco }}">{{ t.title }}</div>
+                </div>
+                <span onClick="{{ t.edit }}" style="cursor:pointer;flex:none;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#8A857A;border:1px solid #E0DBCE" style-hover="border-color:#BD5D3A;color:#BD5D3A">✎</span>
+              </div>
+            </sc-for>
+            <div onClick="{{ ph.add }}" style="cursor:pointer;border:1px dashed #DDD8CB;border-radius:12px;padding:12px;text-align:center;font-size:13px;color:#8A857A" style-hover="border-color:#BD5D3A;color:#BD5D3A">+ Add a day here</div>
+          </div>
+          <sc-if value="{{ ph.milestone }}">
+            <div style="margin-top:10px;display:flex;align-items:center;gap:13px;padding:14px;border-radius:13px;border:1px dashed {{ ph.msBd }};background:{{ ph.msBg }}">
+              <span style="font-size:20px">{{ ph.msIcon }}</span>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:{{ ph.msFg }}">Milestone · {{ ph.milestone }}</div>
+                <div style="font-size:11.5px;color:#8A857A;margin-top:2px">{{ ph.msNote }}</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <div onClick="{{ openChat }}" style="cursor:pointer;border:1px solid #DDD8CB;background:#F7F5EF;border-radius:13px;padding:15px;text-align:center;font-size:13.5px;color:#57534A" style-hover="border-color:#BD5D3A;color:#BD5D3A">Ask Claude to reshuffle the plan</div>
+    </div>
+    </sc-if>
+
+    <!-- ── STREAK ── -->
+    <sc-if value="{{ tabStreak }}">
+    <div style="animation:aRise .4s ease both">
+      <div style="background:#191917;color:#F0EEE6;border-radius:20px;padding:30px 22px;text-align:center;margin-bottom:14px">
+        <div style="font-size:48px;line-height:1;margin-bottom:4px;animation:aFlame 2.2s ease-in-out infinite">🔥</div>
+        <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:52px;letter-spacing:-.03em;line-height:1.05;color:#E8845C">{{ streak }}</div>
+        <div style="font-size:14px;color:#A39E92;margin-top:6px">day streak · {{ streakNote }}</div>
+      </div>
+
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:17px;padding:20px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-size:13px;font-weight:600">Every day of the plan</div>
+          <div style="font-size:11.5px;color:#A39E92">{{ progressLabel }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:5px">
+          <sc-for list="{{ gridCells }}" as="c" hint-placeholder-count="30">
+            <div onClick="{{ c.open }}" title="{{ c.tip }}" style="cursor:pointer;aspect-ratio:1;border-radius:5px;background:{{ c.bg }};border:1px solid {{ c.bd }};display:flex;align-items:center;justify-content:center;font-size:8px;color:{{ c.fg }}">{{ c.day }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:15px;margin-top:15px;font-size:11px;color:#8A857A;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;background:#BD5D3A"></span>shipped</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;background:#E5C3B2"></span>partial</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;border:1px solid #DDD8CB"></span>ahead</span>
+        </div>
+      </div>
+
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:17px;padding:20px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:18px">Badges</div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+          <sc-for list="{{ badges }}" as="b" hint-placeholder-count="4">
+            <div style="text-align:center;opacity:{{ b.op }}">
+              <div style="aspect-ratio:1;border-radius:50%;border:1px {{ b.style }} {{ b.bd }};background:{{ b.bg }};display:flex;align-items:center;justify-content:center;font-size:21px">{{ b.icon }}</div>
+              <div style="font-size:10.5px;color:#6B665C;margin-top:7px;line-height:1.3">{{ b.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ hasLog }}">
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:17px;padding:20px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">Your log</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ logEntries }}" as="l" hint-placeholder-count="0">
+            <div style="display:flex;gap:12px">
+              <div style="min-width:46px;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:#A39E92;padding-top:3px">Day {{ l.day }}</div>
+              <div style="min-width:0;flex:1">
+                <div style="font-size:13.5px;font-weight:600;margin-bottom:3px">{{ l.title }}</div>
+                <sc-if value="{{ l.stars }}"><div style="font-size:12px;color:#BD5D3A;margin-bottom:4px">{{ l.stars }}</div></sc-if>
+                <sc-if value="{{ l.note }}"><div style="font-size:13px;color:#57534A;line-height:1.5;text-wrap:pretty">{{ l.note }}</div></sc-if>
+                <sc-if value="{{ l.proof }}">{{ l.proof }}</sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ── TASK DETAIL ── -->
+    <sc-if value="{{ tabTask }}">
+    <div style="animation:aRise .35s ease both">
+      <div onClick="{{ backFromTask }}" style="cursor:pointer;font-size:13px;color:#6B665C;margin-bottom:16px" style-hover="color:#191917">← Back</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <div style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#BD5D3A">Day {{ taskDay }} · {{ taskStatusLabel }}</div>
+        <div onClick="{{ editTask }}" style="cursor:pointer;font-size:12.5px;color:#8A857A" style-hover="color:#BD5D3A">Edit day ✎</div>
+      </div>
+      <h2 style="font-family:'Tiempos Headline',Georgia,serif;font-weight:400;font-size:30px;letter-spacing:-.02em;line-height:1.15;margin:0 0 14px;text-wrap:pretty">{{ taskTitle }}</h2>
+      <p style="font-size:14.5px;line-height:1.6;color:#57534A;margin:0 0 22px;text-wrap:pretty">{{ taskBlurb }}</p>
+
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:17px;padding:20px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-size:13px;font-weight:600">Steps</div>
+          <div style="font-size:12px;color:#A39E92">{{ taskStepDone }}/{{ taskStepTotal }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:3px">
+          <sc-for list="{{ taskSteps }}" as="s" hint-placeholder-count="3">
+            <div onClick="{{ s.toggle }}" style="cursor:pointer;display:flex;align-items:center;gap:13px;padding:11px 8px;border-radius:9px" style-hover="background:#EBE8DE">
+              <span style="width:21px;height:21px;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;border:1.5px solid {{ s.bd }};background:{{ s.bg }};color:#F7F5EF">{{ s.mark }}</span>
+              <span style="font-size:14px;color:{{ s.fg }};text-decoration:{{ s.deco }}">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ taskHasLog }}">
+      <div style="background:#F7F5EF;border:1px solid #DDD8CB;border-radius:17px;padding:20px;margin-bottom:14px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:12px">How it went</div>
+        <sc-if value="{{ taskStars }}"><div style="font-size:14px;color:#BD5D3A;margin-bottom:8px">{{ taskStars }}</div></sc-if>
+        <sc-if value="{{ taskNote }}"><div style="font-size:13.5px;line-height:1.55;color:#57534A;text-wrap:pretty">{{ taskNote }}</div></sc-if>
+        <sc-if value="{{ taskProof }}">{{ taskProof }}</sc-if>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ taskIsDone }}">
+        <div style="background:#F2E7DF;border:1px solid #E2C9A8;border-radius:15px;padding:17px;text-align:center;animation:aPop .4s ease both">
+          <div style="font-size:15px;font-weight:600;color:#9c4727;margin-bottom:3px">Shipped ✓</div>
+          <div style="font-size:12.5px;color:#8A857A">Nothing else due for this day.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ taskIsOpen }}">
+        <div onClick="{{ completeTask }}" style="cursor:pointer;background:{{ completeBg }};color:{{ completeFg }};font-weight:500;font-size:15.5px;padding:15px;border-radius:11px;text-align:center;margin-bottom:11px;border:1px solid {{ completeBd }}">{{ completeLabel }}</div>
+        <div onClick="{{ savePartial }}" style="cursor:pointer;border:1px solid #DDD8CB;border-radius:11px;padding:13px;text-align:center;font-size:13.5px;color:#6B665C" style-hover="border-color:#191917;color:#191917">Save progress, finish tomorrow</div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <div style="position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:linear-gradient(to top,#F0EEE6 64%,rgba(240,238,230,0));padding:14px 16px 18px;pointer-events:none">
+      <div style="width:100%;max-width:440px;display:flex;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:15px;padding:6px;pointer-events:auto;box-shadow:0 8px 24px -14px rgba(25,25,23,.35)">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
+          <div onClick="{{ n.go }}" style="flex:1;cursor:pointer;text-align:center;padding:10px 4px;border-radius:10px;background:{{ n.bg }};transition:background .2s ease">
+            <div style="font-size:15px;line-height:1;margin-bottom:5px">{{ n.icon }}</div>
+            <div style="font-size:10.5px;font-weight:500;color:{{ n.fg }}">{{ n.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</div>
+
+</sc-if>
+
+<!-- ═══ COMPLETION SHEET ═══ -->
+<sc-if value="{{ doneSheet }}">
+<div style="position:fixed;inset:0;background:rgba(25,25,23,.5);display:flex;align-items:flex-end;justify-content:center;padding:16px;z-index:60;overflow:hidden">
+  <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden">
+    <sc-for list="{{ confetti }}" as="c" hint-placeholder-count="0">
+      <span style="position:absolute;top:18%;left:{{ c.left }}%;width:8px;height:12px;border-radius:2px;background:{{ c.color }};animation:aConfetti 1.5s {{ c.delay }}s ease-in forwards"></span>
+    </sc-for>
+  </div>
+  <div style="width:100%;max-width:440px;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:22px;padding:24px;animation:aRise .3s ease both;max-height:88vh;overflow-y:auto;position:relative">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:34px;margin-bottom:8px;animation:aPop .5s ease both">🎉</div>
+      <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:25px;letter-spacing:-.02em;margin-bottom:6px">Day {{ doneDay }} shipped</div>
+      <div style="font-size:13.5px;color:#57534A">Streak now {{ streak }}. Everything below is optional.</div>
+    </div>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12.5px;color:#6B665C;margin-bottom:9px">How did it go?</div>
+      <div style="display:flex;gap:8px">
+        <sc-for list="{{ ratingStars }}" as="st" hint-placeholder-count="5">
+          <div onClick="{{ st.pick }}" style="cursor:pointer;flex:1;aspect-ratio:1;border-radius:11px;border:1px solid {{ st.bd }};background:{{ st.bg }};display:flex;align-items:center;justify-content:center;font-size:19px">{{ st.icon }}</div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="margin-bottom:18px">
+      <div style="font-size:12.5px;color:#6B665C;margin-bottom:9px">Notes on how it went</div>
+      <textarea value="{{ doneNote }}" onChange="{{ onDoneNote }}" rows="3" placeholder="What worked, what fought back…" style="width:100%;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:11px;padding:13px;font-size:13.5px;color:#191917;resize:vertical;line-height:1.5" style-focus="border-color:#BD5D3A"></textarea>
+    </div>
+
+    <div style="margin-bottom:20px">
+      <div style="font-size:12.5px;color:#6B665C;margin-bottom:9px">Proof it's done</div>
+      <sc-if value="{{ doneProof }}">
+        <div style="position:relative">
+          {{ doneProof }}
+          <span onClick="{{ clearProof }}" style="cursor:pointer;position:absolute;top:8px;right:8px;background:#191917;color:#F0EEE6;border-radius:8px;padding:5px 9px;font-size:11.5px">Remove</span>
+        </div>
+      </sc-if>
+      <sc-if value="{{ noProof }}" hint-placeholder-val="{{ true }}">
+        <label style="display:block;cursor:pointer">
+          <input type="file" accept="image/*,.pdf" onChange="{{ onProofFile }}" style="display:none">
+          <span style="display:flex;align-items:center;justify-content:center;gap:9px;border:1px dashed #DDD8CB;border-radius:11px;padding:18px;font-size:13.5px;color:#8A857A;background:#F0EEE6" style-hover="border-color:#BD5D3A;color:#BD5D3A">📷 Screenshot, photo or file</span>
+        </label>
+      </sc-if>
+    </div>
+
+    <div onClick="{{ saveDone }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:15px;padding:14px;border-radius:11px;text-align:center;margin-bottom:9px" style-hover="background:#a44c2c">Save to my log</div>
+    <div onClick="{{ skipDone }}" style="cursor:pointer;text-align:center;font-size:13px;color:#8A857A;padding:9px" style-hover="color:#57534A">Skip — just mark it shipped</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ═══ EDIT SHEET ═══ -->
+<sc-if value="{{ editSheet }}">
+<div style="position:fixed;inset:0;background:rgba(25,25,23,.5);display:flex;align-items:flex-end;justify-content:center;padding:16px;z-index:60">
+  <div style="width:100%;max-width:440px;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:22px;padding:24px;animation:aRise .3s ease both;max-height:88vh;overflow-y:auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px">
+      <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:22px">Edit Day {{ editDayNum }}</div>
+      <span onClick="{{ closeEdit }}" style="cursor:pointer;font-size:13px;color:#8A857A">Close</span>
+    </div>
+    <div style="font-size:12.5px;color:#6B665C;margin-bottom:7px">What happens this day</div>
+    <input value="{{ editTitle }}" onChange="{{ onEditTitle }}" placeholder="Task title" style="width:100%;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:13px;font-size:14.5px;color:#191917;margin-bottom:14px" style-focus="border-color:#BD5D3A">
+    <div style="font-size:12.5px;color:#6B665C;margin-bottom:7px">Why it matters</div>
+    <textarea value="{{ editBlurb }}" onChange="{{ onEditBlurb }}" rows="3" placeholder="One or two lines of context" style="width:100%;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:13px;font-size:13.5px;color:#191917;resize:vertical;line-height:1.5;margin-bottom:14px" style-focus="border-color:#BD5D3A"></textarea>
+    <div style="font-size:12.5px;color:#6B665C;margin-bottom:7px">Time needed</div>
+    <div style="display:flex;gap:8px;margin-bottom:18px">
+      <sc-for list="{{ editHourOpts }}" as="h" hint-placeholder-count="4">
+        <div onClick="{{ h.pick }}" style="cursor:pointer;flex:1;text-align:center;border:1px solid {{ h.bd }};background:{{ h.bg }};border-radius:10px;padding:11px;font-size:13.5px;color:{{ h.fg }}">{{ h.label }}</div>
+      </sc-for>
+    </div>
+
+    <div style="font-size:12.5px;color:#6B665C;margin-bottom:9px">Steps</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+      <sc-for list="{{ editSteps }}" as="s" hint-placeholder-count="3">
+        <div style="display:flex;gap:9px;align-items:center">
+          <input value="{{ s.label }}" onChange="{{ s.change }}" style="flex:1;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:9px;padding:11px 12px;font-size:13.5px;color:#191917" style-focus="border-color:#BD5D3A">
+          <span onClick="{{ s.remove }}" style="cursor:pointer;width:32px;height:32px;flex:none;border:1px solid #E0DBCE;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#8A857A" style-hover="border-color:#B3402A;color:#B3402A">×</span>
+        </div>
+      </sc-for>
+    </div>
+    <div onClick="{{ addStep }}" style="cursor:pointer;border:1px dashed #DDD8CB;border-radius:10px;padding:11px;text-align:center;font-size:13px;color:#8A857A;margin-bottom:20px" style-hover="border-color:#BD5D3A;color:#BD5D3A">+ Add a step</div>
+
+    <div onClick="{{ saveEdit }}" style="cursor:pointer;background:#BD5D3A;color:#F7F5EF;font-weight:500;font-size:15px;padding:14px;border-radius:11px;text-align:center;margin-bottom:9px" style-hover="background:#a44c2c">Save this day</div>
+    <div onClick="{{ deleteDay }}" style="cursor:pointer;text-align:center;font-size:13px;color:#B3402A;padding:9px">Delete this day</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ═══ GENERIC SHEET ═══ -->
+<sc-if value="{{ sheetOpen }}">
+<div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(25,25,23,.5);display:flex;align-items:flex-end;justify-content:center;padding:16px;z-index:55">
+  <div style="width:100%;max-width:440px;background:#F7F5EF;border:1px solid #DDD8CB;border-radius:22px;padding:24px;animation:aRise .28s ease both;max-height:86vh;overflow-y:auto">
+    <div style="font-family:'Tiempos Headline',Georgia,serif;font-size:22px;letter-spacing:-.01em;margin-bottom:10px">{{ sheetTitle }}</div>
+    <div style="font-size:14px;line-height:1.6;color:#57534A;margin-bottom:18px;text-wrap:pretty">{{ sheetBody }}</div>
+
+    <sc-if value="{{ sheetIsChat }}">
+      <sc-for list="{{ chat }}" as="m" hint-placeholder-count="0">
+        <div style="display:flex;justify-content:{{ m.align }};margin-bottom:10px">
+          <div style="max-width:84%;font-size:13.5px;line-height:1.55;padding:11px 14px;border-radius:13px;background:{{ m.bg }};color:{{ m.fg }};border:1px solid {{ m.bd }};text-wrap:pretty">{{ m.text }}</div>
+        </div>
+      </sc-for>
+      <sc-if value="{{ chatBusy }}">
+        <div style="display:flex;gap:5px;padding:6px 4px 10px">
+          <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s infinite"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s .15s infinite"></span>
+          <span style="width:6px;height:6px;border-radius:50%;background:#BD5D3A;animation:aPulse 1s .3s infinite"></span>
+        </div>
+      </sc-if>
+      <div style="display:flex;gap:9px;margin:6px 0 12px">
+        <input value="{{ chatDraft }}" onChange="{{ onChatDraft }}" onKeyDown="{{ onChatKey }}" placeholder="I'm travelling Thursday…" style="flex:1;background:#F0EEE6;border:1px solid #DDD8CB;border-radius:10px;padding:12px 13px;font-size:13.5px;color:#191917" style-focus="border-color:#BD5D3A">
+        <div onClick="{{ sendChat }}" style="cursor:pointer;background:#191917;color:#F0EEE6;border-radius:10px;padding:12px 16px;font-size:14px">↑</div>
+      </div>
+    </sc-if>
+
+    <sc-for list="{{ sheetActions }}" as="a" hint-placeholder-count="0">
+      <div onClick="{{ a.run }}" style="cursor:pointer;padding:14px;border-radius:11px;text-align:center;font-size:14.5px;font-weight:{{ a.fw }};margin-bottom:10px;background:{{ a.bg }};color:{{ a.fg }};border:1px solid {{ a.bd }}">{{ a.label }}</div>
+    </sc-for>
+    <div onClick="{{ closeSheet }}" style="cursor:pointer;text-align:center;font-size:13px;color:#A39E92;padding:8px">Close</div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;landing&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;auth&quot;,&quot;builder&quot;,&quot;app&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;planDays&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;15&quot;,&quot;options&quot;:[&quot;7&quot;,&quot;15&quot;,&quot;30&quot;,&quot;60&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;startDay&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;min&quot;:1,&quot;max&quot;:60,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+const CLAY="#BD5D3A", INK="#191917", PAPER="#F0EEE6", CARD="#F7F5EF", LINE="#DDD8CB", LINE2="#E0DBCE", MUT="#57534A", DIM="#8A857A", FAINT="#A39E92", TINT="#F2E7DF";
+
+const LENGTHS=[
+  {label:"1 week",days:7,hint:"Seven days. For something small or nearly done."},
+  {label:"15 days",days:15,hint:"Two weeks and a bit. The usual choice."},
+  {label:"1 month",days:30,hint:"Four phases, room to build properly."},
+  {label:"2 months",days:60,hint:"Bigger build, or part-time hours."}
+];
+
+const PHASES=[
+  {key:"scope",title:"Lock the scope",share:.2,milestone:"Scope you can defend",icon:"🎯",note:"Clear before you build"},
+  {key:"build",title:"Build it",share:.4,milestone:"Working prototype",icon:"🔧",note:"End to end, ugly is fine"},
+  {key:"polish",title:"Polish",share:.25,milestone:"Ready to show",icon:"✨",note:"Strangers can use it"},
+  {key:"ship",title:"Ship it",share:.15,milestone:"Launched",icon:"🚀",note:"The finish line"}
+];
+
+const POOL={
+  scope:[
+    ["Write the one-line pitch","Say who it's for and what it replaces. Two sentences means the scope is too big.","1h",["Draft three versions","Cut to one line","Say it out loud"]],
+    ["Cut the feature list to three","List everything you imagined, keep only what the pitch needs on day one.","1h",["Brain-dump every feature","Mark must / later / never","Rewrite as three bullets"]],
+    ["Sketch the core screen","The one screen the product lives or dies on. Paper is fine.","2h",["Sketch three layouts","Pick one","Note the data it needs"]],
+    ["Pick the stack and scaffold","Boring choices only. End today with a blank app running.","2h",["Create the repo","Install the framework","Deploy the empty shell"]],
+    ["Model your data","Two or three tables. Write them down before you write code.","2h",["Name the entities","Define the fields","Create the migrations"]],
+    ["Name it and grab the domain","Good enough beats perfect. You can rename after launch.","1h",["List ten names","Check availability","Buy one"]]
+  ],
+  build:[
+    ["Set up auth","Use a provider. Don't build sessions yourself this week.","2h",["Add the provider","Protect one route","Test a real signup"]],
+    ["Build the sign-up flow","Email, password, redirect. The first thing a stranger touches.","2h",["Email and password form","Validation and errors","Redirect to the dashboard"]],
+    ["Build the empty state","What a brand-new account sees. Most builders skip this and it costs them.","1h",["Write the empty copy","Add one clear action","Test with a fresh account"]],
+    ["Core feature, version one","It has to work end to end by tonight. Hard-code whatever you must.","3h",["Happy path only","Hard-code the rest","Use it yourself once"]],
+    ["Make it survive bad input","Every field a stranger can break, break it yourself first.","2h",["List the failure cases","Add guards","Write friendly errors"]],
+    ["Wire up the second screen","The place people land after the core action works.","2h",["Lay out the screen","Connect real data","Handle the loading state"]],
+    ["Put real data through it","Seed it with something realistic. Fake data hides real problems.","2h",["Write a seed script","Load it","Fix what breaks"]],
+    ["Make it work on a phone","Open it on your own phone and fix what's unusable.","2h",["Check every screen","Fix the tap targets","Fix the scrolling"]]
+  ],
+  polish:[
+    ["Write the landing page","Problem, then product. The same order that convinced you.","2h",["Headline and subhead","One screenshot","A single call to action"]],
+    ["Add payments","One plan, one price. You can change it later.","2h",["Connect the provider","One checkout flow","Test a real charge"]],
+    ["Fix the five worst things","You already know what they are. Write them down and kill them.","2h",["List the five","Fix in order","Ship each one"]],
+    ["Set up analytics","Three events, not thirty.","1h",["Signup","Core action","Payment"]],
+    ["Get three strangers to use it","Watch them. Say nothing.","2h",["Recruit three","Watch silently","Write down every stumble"]],
+    ["Write the onboarding copy","Every empty screen and button label, read as a stranger.","1h",["Audit all copy","Rewrite the worst","Re-read cold"]]
+  ],
+  ship:[
+    ["Write the launch post","What it is, who it's for, what it costs.","2h",["Draft it","Cut a third","Add the screenshot"]],
+    ["Line up the channels","Pick two places your people actually read.","1h",["Choose two","Read their rules","Schedule the posts"]],
+    ["Final pass on the funnel","Landing to signup to first value, in one sitting.","2h",["Walk it as a stranger","Fix every friction","Check it on mobile"]],
+    ["Launch","Post it. Today. Not after one more feature.","2h",["Post everywhere","Reply to everything","Ship no new code"]],
+    ["Read the feedback","Sort it into bugs, requests and noise.","1h",["Collect it all","Sort it","Pick next week's one thing"]]
+  ]
+};
+
+const STAGE_ROWS=[
+  [1,0,"Write the one-line pitch","1h"],
+  [2,0,"Cut the features to three","1h"],
+  [4,1,"Scaffold and deploy an empty app","2h"],
+  [7,1,"Core feature, version one","3h"],
+  [10,2,"Get three strangers to use it","2h"],
+  [12,2,"Write the landing page","2h"],
+  [15,3,"Launch","2h"]
+];
+const STAGE_PHASES=[
+  ["Lock the scope","Days 1–3","One sentence you can defend"],
+  ["Build it","Days 4–9","End to end, ugly is fine"],
+  ["Polish","Days 10–13","Strangers can use it"],
+  ["Ship it","Days 14–15","Post it and reply"]
+];
+const STAGE_COPY=[
+  ["Your plan fills itself in.","Answer four questions and every day gets a number, a task and the hours it should take. Nothing vague, nothing left to decide at 9am."],
+  ["Then you just build.","One task a day, sized to the hours you actually have. The rest of the plan stays out of your way until its turn."],
+  ["The details stay yours.","Rewrite any day, add your own, or ask Claude to reshape the whole thing. The plan is a starting point, not a contract."],
+  ["And then it's out.","Fifteen finished days instead of another folder of almost. That's the whole product."]
+];
+
+const GEN_MSGS=["Reading what you gave us…","Sizing tasks to your hours…","Splitting the days into phases…","Placing the milestones…","Numbering the days…"];
+
+const SAMPLES=[
+  {name:"AI recipe app",len:"15 days",rows:[[1,"✓","Validate the idea","1h",1],[2,"✓","Sketch the core screen","2h",1],[3,"3","Build the data model","2h",2],[4,"4","First working API call","3h",0],[5,"5","Show it to one cook","1h",0]]},
+  {name:"Freelance invoicing",len:"1 month",rows:[[1,"✓","Pick one niche","1h",1],[2,"✓","Sketch the invoice screen","2h",1],[3,"3","Auth and accounts","2h",2],[4,"4","PDF generation","3h",0],[5,"5","Charge one real client","1h",0]]},
+  {name:"Portfolio site",len:"1 week",rows:[[1,"✓","Choose three projects","1h",1],[2,"✓","Write the about page","1h",1],[3,"3","Build the case study layout","2h",2],[4,"4","Add real screenshots","2h",0],[5,"5","Deploy on your domain","1h",0]]}
+];
+
+// ── minimal zip text extraction for docx/pptx ──
+async function inflateEntry(buf,off){
+  const dv=new DataView(buf);
+  if(dv.getUint32(off,true)!==0x04034b50) return null;
+  const method=dv.getUint16(off+8,true), fnLen=dv.getUint16(off+26,true), exLen=dv.getUint16(off+28,true);
+  let size=dv.getUint32(off+18,true);
+  const start=off+30+fnLen+exLen;
+  const slice=buf.slice(start,size?start+size:buf.byteLength);
+  if(method===0) return new TextDecoder().decode(slice);
+  if(typeof DecompressionStream==="undefined") return null;
+  const ds=new DecompressionStream("deflate-raw");
+  const stream=new Blob([slice]).stream().pipeThrough(ds);
+  return await new Response(stream).text();
+}
+async function docText(file){
+  const name=file.name.toLowerCase();
+  if(/\.(txt|md|csv|rtf)$/.test(name)) return (await file.text()).slice(0,12000);
+  if(!/\.(docx|pptx)$/.test(name)) return "";
+  try{
+    const buf=await file.arrayBuffer(), dv=new DataView(buf);
+    let eocd=-1;
+    for(let i=buf.byteLength-22;i>=0&&i>buf.byteLength-70000;i--){ if(dv.getUint32(i,true)===0x06054b50){eocd=i;break;} }
+    if(eocd<0) return "";
+    const count=dv.getUint16(eocd+10,true); let p=dv.getUint32(eocd+16,true);
+    const wanted=[];
+    for(let i=0;i<count;i++){
+      if(dv.getUint32(p,true)!==0x02014b50) break;
+      const fnLen=dv.getUint16(p+28,true), exLen=dv.getUint16(p+30,true), cmLen=dv.getUint16(p+32,true);
+      const lo=dv.getUint32(p+42,true);
+      const fn=new TextDecoder().decode(new Uint8Array(buf,p+46,fnLen));
+      if(/word\/document\.xml$/.test(fn)||/ppt\/slides\/slide\d+\.xml$/.test(fn)) wanted.push({fn,lo});
+      p+=46+fnLen+exLen+cmLen;
+    }
+    wanted.sort((a,b)=>a.fn.localeCompare(b.fn,undefined,{numeric:true}));
+    let out="";
+    for(const w of wanted){
+      const xml=await inflateEntry(buf,w.lo);
+      if(!xml) continue;
+      out+=xml.replace(/<\/a:p>|<\/w:p>/g,"\n").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim()+"\n";
+      if(out.length>12000) break;
+    }
+    return out.slice(0,12000);
+  }catch(e){ return ""; }
+}
+
+class Component extends DCLogic {
+  state={
+    screen:"landing", sample:0,
+    authMode:"signup", email:"", password:"", authError:"",
+    step:1, idea:"", types:["Web app"], stage:"Nothing built yet", hours:2, lenIdx:1,
+    briefName:"", briefText:"", briefStatus:"",
+    generating:false, genIdx:0, reviewed:false, genFallback:false,
+    chat:[], chatDraft:"", chatBusy:false,
+    tab:"today", planView:"phase", openDay:null,
+    days:[], currentDay:1, streak:0, sheet:null,
+    doneSheet:null, doneRating:0, doneNote:"", doneProof:"",
+    editDay:null, editTitle:"", editBlurb:"", editHours:"2h", editSteps:[],
+    scrollP:0
+  };
+
+  stageRef=React.createRef();
+
+  onScroll=()=>{
+    const el=this.stageRef.current; if(!el) return;
+    const r=el.getBoundingClientRect();
+    const span=r.height-window.innerHeight;
+    const p=span>0?Math.min(1,Math.max(0,-r.top/span)):0;
+    if(Math.abs(p-this.state.scrollP)>0.002) this.setState({scrollP:p});
+  };
+
+  tick=()=>{
+    this._raf=requestAnimationFrame(this.tick);
+    if(this.state.screen==="landing") this.onScroll();
+  };
+
+  componentWillUnmount(){
+    if(this._timer) clearInterval(this._timer);
+    if(this._raf) cancelAnimationFrame(this._raf);
+    window.removeEventListener("scroll",this.onScroll);
+    window.removeEventListener("resize",this.onScroll);
+    document.removeEventListener("scroll",this.onScroll,true);
+  }
+
+  componentDidMount(){
+    window.addEventListener("scroll",this.onScroll,{passive:true});
+    window.addEventListener("resize",this.onScroll);
+    document.addEventListener("scroll",this.onScroll,true);
+    this.tick();
+    this._timer=setInterval(()=>{ if(this.state.screen==="landing") this.onScroll(); },33);
+    const li=LENGTHS.findIndex(l=>String(l.days)===String(this.props.planDays));
+    const lenIdx=li>=0?li:1;
+    const start=Math.max(1,Number(this.props.startDay)||1);
+    const days=this.fallbackPlan(LENGTHS[lenIdx].days, start);
+    this.setState({
+      lenIdx, days, currentDay:Math.min(start,days.length), streak:start-1,
+      screen:this.props.startScreen||"landing"
+    });
+  }
+
+  // ── plan building ──
+  phaseCounts(total){
+    const out=PHASES.map(p=>Math.max(1,Math.round(total*p.share)));
+    let diff=total-out.reduce((a,b)=>a+b,0), i=1;
+    while(diff!==0){ const j=i%out.length; if(diff>0){out[j]++;diff--;} else if(out[j]>1){out[j]--;diff++;} i++; }
+    return out;
+  }
+  fallbackPlan(total,todayAt){
+    const counts=this.phaseCounts(total), out=[]; let d=1;
+    PHASES.forEach((ph,pi)=>{
+      const pool=POOL[ph.key];
+      for(let k=0;k<counts[pi];k++){
+        const t=pool[k%pool.length];
+        const suffix=k>=pool.length?" · round "+(Math.floor(k/pool.length)+1):"";
+        out.push(this.mkDay(d,pi,t[0]+suffix,t[1],t[2],t[3],todayAt));
+        d++;
+      }
+    });
+    return out;
+  }
+  mkDay(day,phase,title,blurb,hours,steps,todayAt){
+    return {day,phase,title,blurb,hours:hours||"2h",
+      steps:(steps&&steps.length?steps:["Start it","Finish it"]).map(s=>({label:s,done:day<todayAt})),
+      status:day<todayAt?"done":(day===todayAt?"open":"future"),
+      rating:0,note:"",proof:""};
+  }
+  renumber(list){
+    return list.map((d,i)=>({...d,day:i+1}));
+  }
+
+  async generate(){
+    const s=this.state, total=LENGTHS[s.lenIdx].days;
+    this.setState({generating:true,genIdx:0,genFallback:false});
+    const tick=setInterval(()=>this.setState(p=>({genIdx:p.genIdx+1})),900);
+    let days=null;
+    try{
+      if(window.claude&&window.claude.complete){
+        const prompt="Build a day-by-day launch plan.\n\nProject: "+(s.idea||"unspecified")+
+          "\nProduct types: "+s.types.join(", ")+"\nCurrent stage: "+s.stage+
+          "\nHours available per day: "+s.hours+"\nTotal days: "+total+
+          (s.briefText?"\n\nThe builder's own brief:\n"+s.briefText.slice(0,6000):"")+
+          "\n\nReturn ONLY a JSON array of exactly "+total+" objects, one per day, in order. Each object: "+
+          '{"phase":0|1|2|3,"title":"short imperative task","blurb":"1-2 sentences on why it matters","hours":"1h|2h|3h","steps":["3 short sub-steps"]}. '+
+          "phase 0=lock the scope, 1=build, 2=polish, 3=ship. Sized so each day fits "+s.hours+
+          " hours. Skip work already done at the stated stage. No markdown, no prose, JSON only.";
+        const raw=await window.claude.complete({messages:[{role:"user",content:prompt}],max_tokens:8000});
+        const m=raw.match(/\[[\s\S]*\]/);
+        const arr=JSON.parse(m?m[0]:raw);
+        if(Array.isArray(arr)&&arr.length>=3){
+          days=arr.slice(0,total).map((t,i)=>this.mkDay(i+1,Math.min(3,Math.max(0,Number(t.phase)||0)),
+            String(t.title||"Untitled day"),String(t.blurb||""),String(t.hours||s.hours+"h"),
+            Array.isArray(t.steps)?t.steps.map(String):[],1));
+        }
+      }
+    }catch(e){ days=null; }
+    clearInterval(tick);
+    if(!days){ days=this.fallbackPlan(total,1); this.setState({genFallback:true}); }
+    this.setState({days,currentDay:1,streak:0,generating:false,reviewed:true});
+  }
+
+  async sendChatNow(preset){
+    const text=(preset||this.state.chatDraft).trim(); if(!text||this.state.chatBusy) return;
+    this.setState(p=>({chat:[...p.chat,{me:true,text}],chatDraft:"",chatBusy:true}));
+    const s=this.state;
+    const planSummary=s.days.map(d=>d.day+". ["+PHASES[d.phase].title+"] "+d.title+" ("+d.hours+")").join("\n");
+    let reply="", newDays=null;
+    try{
+      if(window.claude&&window.claude.complete){
+        const raw=await window.claude.complete({
+          system:"You edit day-by-day launch plans for solo builders. Always reply with ONLY a JSON object: "+
+            '{"reply":"one or two sentences on what you changed","plan":[{"phase":0-3,"title":"...","blurb":"...","hours":"2h","steps":["..."]}]}. '+
+            "Include the full revised plan in order, same number of days unless asked otherwise. phase 0=scope,1=build,2=polish,3=ship. No markdown.",
+          messages:[{role:"user",content:"Project: "+(s.idea||"unspecified")+"\nTypes: "+s.types.join(", ")+
+            "\nStage: "+s.stage+"\nHours/day: "+s.hours+"\n\nCurrent plan:\n"+planSummary+"\n\nRequested change: "+text}],
+          max_tokens:8000
+        });
+        const m=raw.match(/\{[\s\S]*\}/);
+        const obj=JSON.parse(m?m[0]:raw);
+        reply=String(obj.reply||"Updated.");
+        if(Array.isArray(obj.plan)&&obj.plan.length>=3){
+          newDays=obj.plan.map((t,i)=>this.mkDay(i+1,Math.min(3,Math.max(0,Number(t.phase)||0)),
+            String(t.title||"Untitled day"),String(t.blurb||""),String(t.hours||"2h"),
+            Array.isArray(t.steps)?t.steps.map(String):[],this.state.currentDay));
+        }
+      } else {
+        reply="Claude isn't reachable from here, so nothing changed. You can still edit any day by hand.";
+      }
+    }catch(e){
+      reply="That didn't come back cleanly, so the plan is unchanged. Try phrasing the change more simply.";
+    }
+    this.setState(p=>({chat:[...p.chat,{me:false,text:reply}],chatBusy:false,days:newDays||p.days}));
+  }
+
+  mutate(day,fn){
+    this.setState(s=>({days:s.days.map(x=>x.day===day?fn({...x,steps:x.steps.map(y=>({...y}))}):x)}));
+  }
+  shipDay(day){
+    this.mutate(day,x=>{x.status="done";x.steps=x.steps.map(s=>({...s,done:true}));return x;});
+    this.setState(s=>({streak:s.streak+1,doneSheet:day,doneRating:0,doneNote:"",doneProof:""}));
+  }
+
+  openEdit(day){
+    const d=this.state.days.find(x=>x.day===day); if(!d) return;
+    this.setState({editDay:day,editTitle:d.title,editBlurb:d.blurb,editHours:d.hours,
+      editSteps:d.steps.map(s=>s.label)});
+  }
+  addDayToPhase(pi){
+    this.setState(s=>{
+      const list=[...s.days];
+      let idx=list.map(d=>d.phase).lastIndexOf(pi);
+      if(idx<0) idx=list.length-1;
+      const nd=this.mkDay(0,pi,"New day","What are you doing this day?","2h",["Step one"],s.currentDay+1);
+      nd.status="future";
+      list.splice(idx+1,0,nd);
+      const renum=this.renumber(list);
+      const target=renum[idx+1];
+      return {days:renum,editDay:target.day,editTitle:target.title,editBlurb:target.blurb,
+        editHours:target.hours,editSteps:target.steps.map(x=>x.label)};
+    });
+  }
+
+  stageVals(){
+    const p=this.state.scrollP;
+    const N=STAGE_ROWS.length;
+    const runway=0.86;                       // last 14% holds the finished state
+    const slot=runway/N;
+    const clamp=v=>Math.min(1,Math.max(0,v));
+
+    let landed=0;
+    const rows=STAGE_ROWS.map(([day,phase,label,hours],i)=>{
+      const local=clamp((p-i*slot)/(slot*0.82));   // 0 → incoming, 1 → landed
+      const isIn=local>0.995;
+      if(isIn) landed++;
+      const y=(1-local)*-46, sc=0.94+local*0.06;
+      const done=p>(i+1)*slot+slot*0.35;
+      return {day,label,hours,
+        op:local.toFixed(3),
+        tf:"translateY("+y.toFixed(1)+"px) scale("+sc.toFixed(3)+")",
+        blur:local>0.96?"none":"blur("+((1-local)*3).toFixed(1)+"px)",
+        bg:done?"#F2E7DF":(isIn?"#F7F5EF":"transparent"),
+        bd:done?"#E2C9A8":(isIn?"#DDD8CB":"transparent"),
+        chipBg:done?CLAY:(isIn?"#EBE8DE":"#EBE8DE"),
+        chipFg:done?CARD:DIM,
+        mark:done?"✓":String(i+1),
+        dayFg:done?"#9c4727":FAINT,
+        fg:done?DIM:INK, fw:isIn&&!done?"600":"400",
+        deco:done?"line-through":"none",
+        phase};
+    });
+
+    const pctRaw=Math.round(clamp(p/runway)*100);
+    const phaseIdx=Math.min(3,Math.floor(clamp(p/runway)*4));
+    const finished=p>0.93;
+
+    return {
+      stageRows:rows,
+      stageCounter:finished?"15 of 15 days":landed+" of "+N+" shown",
+      stagePct:finished?100:pctRaw,
+      stagePctLabel:(finished?100:pctRaw)+"%",
+      stageBarLabel:finished?"Plan complete":"Progress",
+      stageHeading:STAGE_COPY[phaseIdx][0],
+      stageBody:STAGE_COPY[phaseIdx][1],
+      stagePhases:STAGE_PHASES.map(([label,meta,note],i)=>{
+        const active=i===phaseIdx, past=i<phaseIdx;
+        return {label,meta:active?note:meta,num:String(i+1),
+          bg:active?TINT:"transparent", bd:active?CLAY:"#E5E0D3",
+          chipBg:active||past?CLAY:"#EBE8DE", chipFg:active||past?CARD:DIM,
+          fg:active?INK:(past?MUT:DIM), fw:active?"600":"400"};
+      }),
+      stampOp:finished?"1":"0",
+      stampTf:finished?"scale(1)":"scale(.88)"
+    };
+  }
+
+  renderVals(){
+    const s=this.state;
+    const total=s.days.length||LENGTHS[s.lenIdx].days;
+    const doneCount=s.days.filter(d=>d.status==="done").length;
+    const cur=s.days.find(x=>x.day===s.currentDay)||null;
+    const detDay=s.openDay==null?s.currentDay:s.openDay;
+    const det=s.days.find(x=>x.day===detDay)||null;
+    const sample=SAMPLES[s.sample%SAMPLES.length];
+    const pct=total?Math.round(doneCount/total*100):0;
+
+    const sel=(on)=>on?{bd:CLAY,bg:TINT,boxBd:CLAY,boxBg:CLAY,mark:"✓",dot:CLAY,dotFill:CLAY,fg:INK}
+                     :{bd:LINE,bg:CARD,boxBd:LINE,boxBg:"transparent",mark:"",dot:LINE,dotFill:"transparent",fg:INK};
+
+    const typeDefs=[["Web app","Dashboard, accounts, data"],["Mobile app","iOS or Android, store review"],
+      ["Marketing site","Pages, copy, SEO"],["Portfolio","Case studies, your own work"],
+      ["SaaS with billing","Plans, checkout, trials"],["Internal tool","For a team, not the public"]];
+    const typeOptions=typeDefs.map(([label,hint])=>{
+      const on=s.types.indexOf(label)>=0;
+      return {label,hint,...sel(on),pick:()=>this.setState(p=>({types:on?p.types.filter(t=>t!==label):[...p.types,label]}))};
+    });
+
+    const stageOptions=[["Nothing built yet","start at day 1"],["Designs or sketches done","skip ahead"],
+      ["Half-built prototype","skip ahead"],["Built, never launched","launch-focused"]]
+      .map(([label,hint])=>({label,hint,...sel(s.stage===label),pick:()=>this.setState({stage:label})}));
+
+    const lengthOptions=LENGTHS.map((l,i)=>({label:l.label,hint:l.hint,...sel(s.lenIdx===i),
+      pick:()=>this.setState({lenIdx:i})}));
+
+    const canNext = s.step===1 ? (s.idea.trim().length>2||!!s.briefText||!!s.briefName)
+                  : s.step===2 ? s.types.length>0 : true;
+
+    // phases grouped
+    const group=(list)=>PHASES.map((ph,pi)=>({ph,pi,tasks:list.filter(d=>d.phase===pi)})).filter(g=>g.tasks.length>0);
+    const reviewPhases=group(s.days).map(({ph,pi,tasks})=>({
+      title:ph.title, range:"Day "+tasks[0].day+"–"+tasks[tasks.length-1].day,
+      add:()=>this.addDayToPhase(pi),
+      tasks:tasks.map(t=>({day:t.day,title:t.title,hours:t.hours,edit:()=>this.openEdit(t.day)}))
+    }));
+
+    const visible=(s.planView==="phase"&&cur)?s.days.filter(d=>d.phase===cur.phase):s.days;
+    const planPhases=group(visible).map(({ph,pi,tasks})=>{
+      const all=s.days.filter(d=>d.phase===pi);
+      const pDone=all.filter(d=>d.status==="done").length;
+      const reached=pDone===all.length&&all.length>0;
+      return {title:ph.title+" · Day "+all[0].day+"–"+all[all.length-1].day,
+        color:(cur&&pi<=cur.phase)?CLAY:DIM, count:pDone+"/"+all.length,
+        add:()=>this.addDayToPhase(pi),
+        milestone:ph.milestone, msIcon:ph.icon, msNote:reached?"Unlocked":ph.note,
+        msBd:reached?CLAY:LINE, msBg:reached?TINT:CARD, msFg:reached?"#9c4727":INK,
+        tasks:tasks.map(d=>{
+          const isToday=d.day===s.currentDay, done=d.status==="done";
+          return {day:d.day,title:d.title,hours:d.hours,
+            mark:done?"✓":String(d.day),
+            bg:isToday?TINT:CARD, bd:isToday?CLAY:LINE,
+            chipBg:done?CLAY:(isToday?CLAY:"#EBE8DE"), chipFg:(done||isToday)?CARD:DIM,
+            fg:done?DIM:INK, fw:isToday?"600":"500", deco:done?"line-through":"none",
+            open:()=>this.setState({openDay:d.day,tab:"task"}),
+            edit:()=>this.openEdit(d.day)};
+        })};
+    });
+
+    const gridCells=s.days.map(d=>{
+      const done=d.status==="done", partial=!done&&d.steps.some(x=>x.done);
+      return {day:d.day, tip:"Day "+d.day+" · "+d.title,
+        bg:done?CLAY:(partial?"#E5C3B2":"transparent"),
+        bd:d.day===s.currentDay?CLAY:LINE,
+        fg:done?CARD:"transparent",
+        open:()=>this.setState({openDay:d.day,tab:"task"})};
+    });
+
+    const mid=Math.max(2,Math.ceil(total/2));
+    const streakMark=Math.min(7,Math.max(3,total-1));
+    const badgeDefs=[["🥇","First ship",doneCount>=1],["🔥",streakMark+"-day streak",s.streak>=streakMark],
+      ["🔧","Halfway",doneCount>=mid],["🚀","Launched",doneCount>=total]];
+    const nextMark=[1,mid,total].find(n=>doneCount<n);
+
+    const logged=s.days.filter(d=>d.note||d.rating||d.proof);
+    const stars=n=>n?"★★★★★".slice(0,n)+"☆☆☆☆☆".slice(0,5-n):"";
+
+    const navDefs=[["today","◎","Today"],["plan","▤","Plan"],["streak","🔥","Streak"]];
+    const navItems=navDefs.map(([k,icon,label])=>{
+      const on=s.tab===k||(k==="today"&&s.tab==="task"&&s.openDay==null)||(k==="plan"&&s.tab==="task"&&s.openDay!=null);
+      return {icon,label,bg:on?"#EBE8DE":"transparent",fg:on?INK:DIM,
+        go:()=>this.setState({tab:k,openDay:null})};
+    });
+
+    const sheets={
+      skip:{title:"Can't ship today?",body:"The plan bends. Push today to tomorrow and every later day shifts with it — your streak pauses instead of resetting. Or drop this day and keep the dates.",
+        actions:[["Push everything a day","primary",()=>this.setState({sheet:null})],
+                 ["Drop this day, keep the dates","ghost",()=>{this.mutate(s.currentDay,x=>{x.status="done";return x;});this.setState({sheet:null});}]]},
+      help:{title:"Stuck on this one?",body:"Break today into smaller pieces, or swap it for something that fits the hours you have left.",
+        actions:[["Break it into smaller steps","primary",()=>{this.mutate(s.currentDay,x=>{x.steps=[...x.steps,{label:"Smaller: just the first piece",done:false},{label:"Smaller: hard-code the rest",done:false}];return x;});this.setState({sheet:null,tab:"task",openDay:null});}],
+                 ["Edit today by hand","ghost",()=>{this.setState({sheet:null});this.openEdit(s.currentDay);}]]},
+      chat:{title:"Ask Claude to reshuffle",body:"Describe the change in plain words and Claude rewrites the remaining days.",isChat:true,actions:[]},
+      partial:{title:"Progress saved",body:"Today counts as partial. The unfinished steps move to tomorrow and your streak holds — as long as you come back.",
+        actions:[["Got it","primary",()=>this.setState({sheet:null,tab:"today",openDay:null})]]}
+    };
+    const sh=s.sheet?sheets[s.sheet]:null;
+
+    const hourOpts=["1h","2h","3h","4h"].map(h=>({label:h,
+      bd:s.editHours===h?CLAY:LINE, bg:s.editHours===h?TINT:PAPER, fg:INK,
+      pick:()=>this.setState({editHours:h})}));
+
+    const confetti=Array.from({length:16},(_,i)=>({left:6+i*5.8,delay:(i%6)*0.09,
+      color:[CLAY,"#E8845C","#191917","#D9B98F","#BCD1CA"][i%5]}));
+
+    return {
+      isLanding:s.screen==="landing", isAuth:s.screen==="auth", isBuilder:s.screen==="builder", isApp:s.screen==="app",
+      goLanding:()=>this.setState({screen:"landing"}),
+      goAuth:()=>this.setState({screen:"auth",authMode:"login"}),
+      goBuilder:()=>this.setState({screen:"auth",authMode:"signup"}),
+
+      stageRef:this.stageRef,
+      ...this.stageVals(),
+
+      sampleName:sample.name, sampleLen:sample.len,
+      sampleRows:sample.rows.map(([day,mark,label,meta,st])=>({day,mark,label,meta,
+        bg:st===2?TINT:"transparent", bd:st===2?CLAY:"transparent",
+        chipBg:st?CLAY:"#EBE8DE", chipFg:st?CARD:FAINT,
+        dayFg:st===2?"#9c4727":FAINT,
+        fg:st===1?DIM:INK, fw:st===2?"600":"400"})),
+      cycleSample:()=>this.setState(p=>({sample:p.sample+1})),
+
+      email:s.email, password:s.password, authError:s.authError,
+      onEmail:e=>this.setState({email:e.target.value}), onPassword:e=>this.setState({password:e.target.value}),
+      setLogin:()=>this.setState({authMode:"login"}), setSignup:()=>this.setState({authMode:"signup"}),
+      loginTabBg:s.authMode==="login"?CARD:"transparent", loginTabFg:s.authMode==="login"?INK:DIM,
+      signupTabBg:s.authMode==="signup"?CARD:"transparent", signupTabFg:s.authMode==="signup"?INK:DIM,
+      authCta:s.authMode==="login"?"Log in →":"Create account →",
+      submitAuth:()=>{
+        if(!s.email.includes("@")) return this.setState({authError:"Enter an email address."});
+        if(s.password.length<4) return this.setState({authError:"Password needs at least 4 characters."});
+        this.setState({authError:"",screen:"builder",step:1});
+      },
+
+      stepLabel:s.generating?"Writing your plan":(s.reviewed?"Review and edit":"Question "+s.step+" of 4"), stepPct:s.reviewed?100:(s.step/4)*100,
+      atStep1:!s.generating&&!s.reviewed&&s.step===1,
+      atStep2:!s.generating&&!s.reviewed&&s.step===2,
+      atStep3:!s.generating&&!s.reviewed&&s.step===3,
+      atStep4:!s.generating&&!s.reviewed&&s.step===4,
+      isGenerating:s.generating, genMessage:GEN_MSGS[s.genIdx%GEN_MSGS.length],
+      atReview:s.reviewed&&!s.generating, showBuilderNav:!s.generating&&!s.reviewed,
+      genFallback:s.genFallback,
+
+      idea:s.idea, onIdea:e=>this.setState({idea:e.target.value}),
+      briefName:s.briefName, briefStatus:s.briefStatus,
+      onBriefFile:async e=>{
+        const f=e.target.files&&e.target.files[0]; if(!f) return;
+        this.setState({briefName:f.name,briefStatus:"Reading…",briefText:""});
+        const txt=await docText(f);
+        this.setState({briefText:txt,
+          briefStatus:txt?Math.round(txt.length/5)+" words read — Claude will build from this"
+                         :"Attached. PDFs can't be read here, so Claude will use the filename and your answers."});
+      },
+      clearBrief:()=>this.setState({briefName:"",briefText:"",briefStatus:""}),
+
+      typeOptions, typeSummary:s.types.length?s.types.length+" selected · "+s.types.join(", "):"Pick at least one",
+      stageOptions, lengthOptions,
+      hours:s.hours, hoursLabel:s.hours+"h", onHours:e=>this.setState({hours:Number(e.target.value)}),
+      nextLabel:s.step===4?"Build my plan":"Continue",
+      nextBg:canNext?CLAY:"#E5E0D3", nextFg:canNext?CARD:FAINT, nextOpacity:canNext?"1":"0.7",
+      prevStep:()=>this.setState(p=>p.step===1?{screen:"auth"}:{step:p.step-1}),
+      nextStep:()=>{ if(!canNext) return; if(s.step<4) return this.setState({step:s.step+1}); this.generate(); },
+
+      reviewSummary:(s.idea.trim()||s.briefName||"Your project")+" · "+LENGTHS[s.lenIdx].label+" · "+s.hours+"h a day · "+total+" numbered days.",
+      reviewPhases,
+      chat:s.chat.map(m=>({text:m.text,align:m.me?"flex-end":"flex-start",
+        bg:m.me?INK:PAPER, fg:m.me?PAPER:INK, bd:m.me?INK:LINE})),
+      chatBusy:s.chatBusy, chatDraft:s.chatDraft,
+      onChatDraft:e=>this.setState({chatDraft:e.target.value}),
+      onChatKey:e=>{ if(e.key==="Enter") this.sendChatNow(); },
+      sendChat:()=>this.sendChatNow(),
+      chatChips:[["Make the first days lighter"],["Add a testing day each week"],["I already did payments"]]
+        .map(([label])=>({label,run:()=>this.sendChatNow(label)})),
+      commitPlan:()=>this.setState({screen:"app",tab:"today",currentDay:1,editDay:null,sheet:null,doneSheet:null}),
+
+      tabToday:s.tab==="today", tabPlan:s.tab==="plan", tabStreak:s.tab==="streak", tabTask:s.tab==="task",
+      navItems, streak:s.streak, currentDay:s.currentDay, totalDays:total,
+      dayHeader:"Day "+s.currentDay+" of "+total,
+      daysLeft:Math.max(0,total-doneCount), doneCount,
+      nextBadgeIn:nextMark?(nextMark-doneCount):"—", hasNextBadge:!!nextMark,
+      phaseTheme:cur?PHASES[cur.phase].title:"Plan complete",
+      progressLabel:pct+"% complete", progressPct:pct,
+      hasToday:!!cur&&cur.status!=="done",
+      allDone:!!cur&&cur.status==="done"&&doneCount<total,
+      launched:doneCount>=total&&total>0,
+      launchLine:"You shipped "+total+" days. "+(s.idea.trim()||"Your product")+" is out in the world.",
+      todayTitle:cur?cur.title:"", todayBlurb:cur?cur.blurb:"", todayHours:cur?cur.hours:"",
+      todaySubDone:cur?cur.steps.filter(x=>x.done).length:0, todaySubTotal:cur?cur.steps.length:0,
+      shipToday:()=>this.shipDay(s.currentDay),
+      openTask:()=>this.setState({tab:"task",openDay:null}),
+      openHelp:()=>this.setState({sheet:"help"}), openSkip:()=>this.setState({sheet:"skip"}),
+      openChat:()=>this.setState({sheet:"chat"}),
+      pullForward:()=>this.setState(p=>({currentDay:Math.min(p.days.length,p.currentDay+1)})),
+      goStreak:()=>this.setState({tab:"streak",openDay:null}),
+
+      planTitle:LENGTHS[s.lenIdx].label+" plan",
+      setPhaseView:()=>this.setState({planView:"phase"}), setAllView:()=>this.setState({planView:"all"}),
+      phaseTabBg:s.planView==="phase"?CARD:"transparent", phaseTabFg:s.planView==="phase"?INK:DIM,
+      allTabBg:s.planView==="all"?CARD:"transparent", allTabFg:s.planView==="all"?INK:DIM,
+      planPhases, gridCells,
+      badges:badgeDefs.map(([icon,label,earned])=>({icon,label,
+        op:earned?"1":"0.35", style:earned?"solid":"dashed", bd:earned?CLAY:LINE, bg:earned?TINT:"transparent"})),
+      streakNote:s.streak>=streakMark?"personal best":"keep it going",
+      hasLog:logged.length>0,
+      logEntries:logged.map(d=>({day:d.day,title:d.title,note:d.note,stars:stars(d.rating),
+        proof:d.proof?React.createElement("img",{src:d.proof,alt:"proof",
+          style:{marginTop:"8px",width:"88px",height:"64px",objectFit:"cover",borderRadius:"8px",border:"1px solid "+LINE}}):null})),
+
+      taskDay:det?det.day:"", taskTitle:det?det.title:"", taskBlurb:det?det.blurb:"",
+      taskStatusLabel:det?(det.status==="done"?"shipped":(det.day===s.currentDay?"today":"upcoming")):"",
+      taskSteps:det?det.steps.map((x,i)=>({label:x.label, mark:x.done?"✓":"",
+        bd:x.done?CLAY:LINE, bg:x.done?CLAY:"transparent", fg:x.done?DIM:INK,
+        deco:x.done?"line-through":"none",
+        toggle:()=>this.mutate(det.day,t=>{t.steps[i].done=!t.steps[i].done;return t;})})):[],
+      taskStepDone:det?det.steps.filter(x=>x.done).length:0, taskStepTotal:det?det.steps.length:0,
+      taskHasLog:!!det&&!!(det.note||det.rating||det.proof),
+      taskNote:det?det.note:"", taskStars:det?stars(det.rating):"",
+      taskProof:det&&det.proof?React.createElement("img",{src:det.proof,alt:"proof",
+        style:{marginTop:"12px",width:"100%",maxHeight:"190px",objectFit:"cover",borderRadius:"10px",border:"1px solid "+LINE}}):null,
+      taskIsDone:!!det&&det.status==="done", taskIsOpen:!!det&&det.status!=="done",
+      completeLabel:det&&det.steps.every(x=>x.done)?"Mark shipped ✓":"Mark shipped anyway",
+      completeBg:det&&det.steps.every(x=>x.done)?CLAY:"transparent",
+      completeFg:det&&det.steps.every(x=>x.done)?CARD:INK,
+      completeBd:det&&det.steps.every(x=>x.done)?CLAY:LINE,
+      completeTask:()=>{ if(det) this.shipDay(det.day); },
+      savePartial:()=>this.setState({sheet:"partial"}),
+      editTask:()=>{ if(det) this.openEdit(det.day); },
+      backFromTask:()=>this.setState({tab:s.openDay!=null?"plan":"today",openDay:null}),
+
+      doneSheet:s.doneSheet!=null, doneDay:s.doneSheet, confetti,
+      ratingStars:[1,2,3,4,5].map(n=>({icon:n<=s.doneRating?"★":"☆",
+        bd:n<=s.doneRating?CLAY:LINE, bg:n<=s.doneRating?TINT:PAPER,
+        pick:()=>this.setState({doneRating:n})})),
+      doneNote:s.doneNote, onDoneNote:e=>this.setState({doneNote:e.target.value}),
+      doneProof:s.doneProof?React.createElement("img",{src:s.doneProof,alt:"proof",
+        style:{width:"100%",maxHeight:"180px",objectFit:"cover",borderRadius:"11px",border:"1px solid "+LINE}}):null,
+      noProof:!s.doneProof,
+      onProofFile:e=>{ const f=e.target.files&&e.target.files[0]; if(!f) return;
+        this.setState({doneProof:URL.createObjectURL(f)}); },
+      clearProof:()=>this.setState({doneProof:""}),
+      saveDone:()=>{ const d=s.doneSheet;
+        this.mutate(d,x=>{x.rating=s.doneRating;x.note=s.doneNote;x.proof=s.doneProof;return x;});
+        this.setState({doneSheet:null,tab:"today",openDay:null}); },
+      skipDone:()=>this.setState({doneSheet:null,tab:"today",openDay:null}),
+
+      editSheet:s.editDay!=null, editDayNum:s.editDay,
+      editTitle:s.editTitle, onEditTitle:e=>this.setState({editTitle:e.target.value}),
+      editBlurb:s.editBlurb, onEditBlurb:e=>this.setState({editBlurb:e.target.value}),
+      editHourOpts:hourOpts,
+      editSteps:s.editSteps.map((label,i)=>({label,
+        change:e=>this.setState(p=>({editSteps:p.editSteps.map((x,j)=>j===i?e.target.value:x)})),
+        remove:()=>this.setState(p=>({editSteps:p.editSteps.filter((x,j)=>j!==i)}))})),
+      addStep:()=>this.setState(p=>({editSteps:[...p.editSteps,""]})),
+      closeEdit:()=>this.setState({editDay:null}),
+      saveEdit:()=>{
+        const d=s.editDay;
+        this.mutate(d,x=>{
+          x.title=s.editTitle.trim()||x.title; x.blurb=s.editBlurb; x.hours=s.editHours;
+          const labels=s.editSteps.map(t=>t.trim()).filter(Boolean);
+          x.steps=labels.length?labels.map((l,i)=>({label:l,done:x.steps[i]?x.steps[i].done:false})):x.steps;
+          return x;
+        });
+        this.setState({editDay:null});
+      },
+      deleteDay:()=>this.setState(p=>{
+        const list=this.renumber(p.days.filter(d=>d.day!==p.editDay));
+        return {days:list,editDay:null,currentDay:Math.min(p.currentDay,Math.max(1,list.length)),openDay:null};
+      }),
+
+      sheetOpen:!!sh, sheetTitle:sh?sh.title:"", sheetBody:sh?sh.body:"", sheetIsChat:!!(sh&&sh.isChat),
+      sheetActions:sh?sh.actions.map(([label,kind,run])=>({label,run,
+        fw:kind==="primary"?"600":"500",
+        bg:kind==="primary"?CLAY:"transparent", fg:kind==="primary"?CARD:INK,
+        bd:kind==="primary"?CLAY:LINE})):[],
+      closeSheet:()=>this.setState({sheet:null})
+    };
+  }
+}
+</script>
+</body>
 </html>
