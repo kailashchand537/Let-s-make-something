@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#f0eee9;font-family:'Architects Daughter',system-ui,sans-serif;color:#1a1a1a}
+  a{color:#e0532d}a:hover{color:#c23e1c}
+  .dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+  .dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 24px}
+  .dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+  .dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+  .dv-opts{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start}
+  .dv-opt{flex:none;display:flex;flex-direction:column;gap:10px;scroll-margin-top:16px}
+  .dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 12px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+  .dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+  .dv-opt:target .dv-oid{background:#e0532d;color:#fff}
+  .dv-next{margin:26px 0 0;font:12px/1.6 system-ui,sans-serif;color:rgba(0,0,0,.5);max-width:760px}
+  /* wireframe utilities */
+  .frame{background:#fff;border:2.5px solid #1a1a1a;border-radius:22px;box-shadow:6px 6px 0 rgba(26,26,26,.85);overflow:hidden}
+  .win{background:#fff;border:2.5px solid #1a1a1a;border-radius:12px;box-shadow:6px 6px 0 rgba(26,26,26,.85);overflow:hidden}
+  .ln{height:9px;background:#e2ded6;border-radius:5px}
+  .ln.s{height:7px}
+  .box{border:2px dashed #b9b3a8;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#a49d90;font-size:13px;text-align:center}
+  .btn{border:2px solid #1a1a1a;border-radius:9px;background:#fff;padding:9px 14px;font-family:inherit;font-size:14px;text-align:center;box-shadow:2px 2px 0 #1a1a1a}
+  .abtn{border:2px solid #1a1a1a;border-radius:9px;background:#ff6a45;color:#1a1a1a;padding:10px 16px;font-family:inherit;font-size:15px;font-weight:700;text-align:center;box-shadow:2px 2px 0 #1a1a1a}
+  .chip{border:2px solid #1a1a1a;border-radius:20px;padding:5px 12px;font-size:13px;background:#fff}
+  .chip.on{background:#ffd9cd}
+  .hand{font-family:'Caveat',cursive;color:#e0532d}
+  .tick{width:20px;height:20px;border:2px solid #1a1a1a;border-radius:6px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .tick.done{background:#1a1a1a;color:#fff}
+  .flame{font-family:'Caveat',cursive;font-weight:700}
+  .sec-tag{font-family:'Caveat',cursive;font-size:20px;color:#e0532d;transform:rotate(-2deg)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">ShipFast — 7 screens, low-fi</span></div>
+  <div class="dv-opts">
+
+    <!-- 1a LANDING -->
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Landing — problem first, then live sample plan</div>
+      <div class="win" style="width:720px">
+        <!-- browser bar -->
+        <div style="display:flex;align-items:center;gap:7px;padding:9px 14px;border-bottom:2px solid #1a1a1a;background:#f7f5f0">
+          <span style="width:11px;height:11px;border:2px solid #1a1a1a;border-radius:50%"></span>
+          <span style="width:11px;height:11px;border:2px solid #1a1a1a;border-radius:50%"></span>
+          <span style="width:11px;height:11px;border:2px solid #1a1a1a;border-radius:50%"></span>
+          <span style="margin-left:12px;flex:1;height:20px;border:2px solid #1a1a1a;border-radius:20px;background:#fff"></span>
+        </div>
+        <!-- nav -->
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1.5px dashed #cfc9bd">
+          <span class="flame" style="font-size:24px">▲ ShipFast</span>
+          <div style="display:flex;gap:12px;align-items:center">
+            <span style="font-size:14px">Log in</span>
+            <span class="abtn" style="padding:7px 13px;font-size:13px">Start challenge</span>
+          </div>
+        </div>
+        <!-- problem -->
+        <div style="padding:34px 28px 26px;text-align:center;border-bottom:1.5px dashed #cfc9bd">
+          <span class="sec-tag">the problem ↴</span>
+          <div style="font-family:'Caveat',cursive;font-weight:700;font-size:40px;line-height:1.05;margin:10px 0 6px">You keep starting.<br>You never ship.</div>
+          <div style="max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:7px">
+            <div class="ln"></div><div class="ln" style="width:80%;margin:0 auto"></div>
+          </div>
+          <div class="box" style="height:96px;margin:20px auto 0;max-width:360px">scribble: tangled "endless loop" doodle</div>
+        </div>
+        <!-- fix -->
+        <div style="padding:28px;text-align:center;border-bottom:1.5px dashed #cfc9bd;background:#faf8f3">
+          <span class="sec-tag">the fix</span>
+          <div style="font-family:'Caveat',cursive;font-weight:700;font-size:30px;margin:6px 0 18px">A systematic plan. Ship in 30 days.</div>
+          <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+            <div class="btn" style="width:170px;box-shadow:3px 3px 0 #1a1a1a"><b>1 · Answer a few Qs</b><div class="ln s" style="margin-top:8px"></div></div>
+            <div class="btn" style="width:170px;box-shadow:3px 3px 0 #1a1a1a"><b>2 · Get your plan</b><div class="ln s" style="margin-top:8px"></div></div>
+            <div class="btn" style="width:170px;box-shadow:3px 3px 0 #1a1a1a"><b>3 · Ship daily</b><div class="ln s" style="margin-top:8px"></div></div>
+          </div>
+        </div>
+        <!-- live sample preview -->
+        <div style="padding:26px 28px">
+          <div style="text-align:center;margin-bottom:14px"><span class="sec-tag">live sample plan ↓</span></div>
+          <div class="frame" style="box-shadow:4px 4px 0 rgba(26,26,26,.85);border-radius:14px">
+            <div style="padding:12px 16px;border-bottom:2px solid #1a1a1a;display:flex;justify-content:space-between;font-size:13px;background:#f7f5f0">
+              <b>"AI recipe app" — 30-day challenge</b><span class="hand" style="font-size:18px">🔥 preview</span>
+            </div>
+            <div style="padding:14px 16px;display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Day 1 — Validate the idea</span></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Day 2 — Wireframe core screen</span></div>
+              <div style="display:flex;gap:10px;align-items:center;padding:6px 8px;border:2px solid #ff6a45;border-radius:8px;background:#fff4f0"><span class="tick">3</span><span style="font-size:13px"><b>Day 3 — Build the data model</b> ← today</span></div>
+              <div style="display:flex;gap:10px;align-items:center;opacity:.4"><span class="tick">🔒</span><span style="font-size:13px">Day 4 — First working API call</span></div>
+            </div>
+          </div>
+          <div style="text-align:center;margin-top:20px"><span class="abtn" style="display:inline-block;padding:12px 26px;font-size:16px">Start my free challenge →</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1b LOGIN -->
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Login / signup</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:26px 24px 24px;display:flex;flex-direction:column;gap:16px">
+          <div style="text-align:center"><span class="flame" style="font-size:26px">▲ ShipFast</span></div>
+          <div style="display:flex;border:2px solid #1a1a1a;border-radius:9px;overflow:hidden;font-size:14px">
+            <div style="flex:1;text-align:center;padding:8px;background:#1a1a1a;color:#fff">Log in</div>
+            <div style="flex:1;text-align:center;padding:8px">Sign up</div>
+          </div>
+          <div>
+            <div style="font-size:12px;margin-bottom:5px">Email</div>
+            <div style="border:2px solid #1a1a1a;border-radius:8px;height:38px"></div>
+          </div>
+          <div>
+            <div style="font-size:12px;margin-bottom:5px">Password</div>
+            <div style="border:2px solid #1a1a1a;border-radius:8px;height:38px"></div>
+          </div>
+          <div class="abtn">Continue →</div>
+          <div style="display:flex;align-items:center;gap:8px;color:#a49d90;font-size:12px"><span style="flex:1;height:1px;background:#cfc9bd"></span>or<span style="flex:1;height:1px;background:#cfc9bd"></span></div>
+          <div class="btn">Continue with Google</div>
+          <div class="hand" style="text-align:center;font-size:16px;transform:rotate(-1.5deg)">dummy login → goes to plan builder</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1c ONBOARDING -->
+    <div class="dv-opt" id="1c">
+      <div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>Plan builder — form first, chat to refine</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:18px 20px 20px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;gap:5px;justify-content:center">
+            <span style="width:26px;height:6px;background:#1a1a1a;border-radius:3px"></span>
+            <span style="width:26px;height:6px;background:#1a1a1a;border-radius:3px"></span>
+            <span style="width:26px;height:6px;background:#e2ded6;border-radius:3px"></span>
+            <span style="width:26px;height:6px;background:#e2ded6;border-radius:3px"></span>
+          </div>
+          <div class="hand" style="font-size:22px;text-align:center">Let's build your plan</div>
+          <div>
+            <div style="font-size:13px;margin-bottom:5px">What are you building?</div>
+            <div style="border:2px solid #1a1a1a;border-radius:8px;height:34px"></div>
+          </div>
+          <div>
+            <div style="font-size:13px;margin-bottom:6px">Project type</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <span class="chip on">Web app</span><span class="chip">Mobile</span><span class="chip">Website</span><span class="chip">SaaS</span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:13px;margin-bottom:6px">Hours/day you can commit</div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="flex:1;height:4px;background:#e2ded6;border-radius:2px;position:relative"><span style="position:absolute;left:40%;top:-6px;width:16px;height:16px;border:2px solid #1a1a1a;border-radius:50%;background:#ff6a45"></span></span><span style="font-size:13px">2h</span></div>
+          </div>
+          <div>
+            <div style="font-size:13px;margin-bottom:6px">Challenge length</div>
+            <div style="display:flex;gap:8px"><span class="chip">1-week sprint</span><span class="chip on">30-day</span></div>
+          </div>
+          <div class="abtn">Generate my plan ✨</div>
+          <div style="border-top:1.5px dashed #cfc9bd;padding-top:12px">
+            <div class="hand" style="font-size:16px;margin-bottom:8px">then refine by chat →</div>
+            <div style="display:flex;gap:8px"><div style="flex:1;border:2px solid #1a1a1a;border-radius:18px;height:34px;display:flex;align-items:center;padding:0 12px;color:#a49d90;font-size:12px">"make week 1 lighter…"</div><span class="btn" style="padding:6px 12px;box-shadow:2px 2px 0 #1a1a1a">↑</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1d DASHBOARD -->
+    <div class="dv-opt" id="1d">
+      <div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>Dashboard — one focused task today</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px;min-height:520px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="flame" style="font-size:20px">▲ ShipFast</span>
+            <div style="display:flex;gap:10px;align-items:center">
+              <span class="chip" style="border-color:#ff6a45;background:#fff4f0"><span class="flame">🔥 7</span></span>
+              <span style="width:34px;height:34px;border:2px solid #1a1a1a;border-radius:50%"></span>
+            </div>
+          </div>
+          <div class="hand" style="font-size:18px">Day 8 of 30 · keep the streak alive</div>
+          <div style="height:8px;background:#e2ded6;border-radius:4px;overflow:hidden"><div style="width:27%;height:100%;background:#ff6a45"></div></div>
+
+          <div class="sec-tag" style="margin-top:4px">today's one thing</div>
+          <div style="border:2.5px solid #1a1a1a;border-radius:14px;padding:18px;box-shadow:4px 4px 0 rgba(26,26,26,.85);display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:12px;color:#a49d90">TASK 8 · ~2h</div>
+            <div style="font-family:'Caveat',cursive;font-weight:700;font-size:26px;line-height:1.05">Build the sign-up flow</div>
+            <div style="display:flex;flex-direction:column;gap:6px"><div class="ln s"></div><div class="ln s" style="width:75%"></div></div>
+            <div class="abtn" style="margin-top:4px">✓ Mark shipped</div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#a49d90"><span>Need help?</span><span>Skip today ›</span></div>
+          </div>
+
+          <div style="flex:1"></div>
+          <!-- bottom nav -->
+          <div style="display:flex;justify-content:space-around;border-top:2px solid #1a1a1a;padding-top:10px;font-size:11px;text-align:center">
+            <span><b>◎</b><br>Today</span><span style="color:#a49d90">▦<br>Plan</span><span style="color:#a49d90">🔥<br>Streak</span><span style="color:#a49d90">◍<br>You</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1e FULL PLAN -->
+    <div class="dv-opt" id="1e">
+      <div class="dv-olabel"><a class="dv-oid" href="#1e">1e</a>Full plan — week / month toggle</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span class="flame" style="font-size:20px">Your plan</span>
+            <div style="display:flex;border:2px solid #1a1a1a;border-radius:8px;overflow:hidden;font-size:12px"><span style="padding:5px 11px;background:#1a1a1a;color:#fff">Week</span><span style="padding:5px 11px">Month</span></div>
+          </div>
+
+          <div class="sec-tag">Week 2 · The Build</div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Day 6 — Set up auth</span></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Day 7 — Database schema</span></div>
+            <div style="display:flex;gap:10px;align-items:center;padding:8px;border:2px solid #ff6a45;border-radius:9px;background:#fff4f0"><span class="tick">8</span><span style="font-size:13px"><b>Day 8 — Sign-up flow</b> · today</span></div>
+            <div style="display:flex;gap:10px;align-items:center;opacity:.45"><span class="tick">🔒</span><span style="font-size:13px">Day 9 — Onboarding screen</span></div>
+            <div style="display:flex;gap:10px;align-items:center;opacity:.45"><span class="tick">🔒</span><span style="font-size:13px">Day 10 — Core feature v1</span></div>
+          </div>
+
+          <div style="display:flex;gap:10px;align-items:center;padding:10px;border:2px dashed #1a1a1a;border-radius:9px;background:#faf8f3">
+            <span style="font-size:22px">🏅</span><span style="font-size:13px"><b>Milestone:</b> Working prototype<br><span style="color:#a49d90">unlock end of week 2</span></span>
+          </div>
+
+          <div style="opacity:.5"><div class="sec-tag">Week 3 · Polish &amp; Launch prep</div></div>
+          <div style="display:flex;flex-direction:column;gap:8px;opacity:.4">
+            <div style="display:flex;gap:10px;align-items:center"><span class="tick">🔒</span><span style="font-size:13px">Day 11 — Landing page</span></div>
+            <div style="display:flex;gap:10px;align-items:center"><span class="tick">🔒</span><span style="font-size:13px">Day 12 — Payment setup</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1f TASK DETAIL -->
+    <div class="dv-opt" id="1f">
+      <div class="dv-olabel"><a class="dv-oid" href="#1f">1f</a>Task detail &amp; completion</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:13px;color:#a49d90">‹ Back · Day 8 of 30</div>
+          <div style="font-family:'Caveat',cursive;font-weight:700;font-size:28px;line-height:1.05">Build the sign-up flow</div>
+          <div>
+            <div class="sec-tag" style="font-size:16px">why this matters</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-top:6px"><div class="ln s"></div><div class="ln s" style="width:85%"></div></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px">Steps</div>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Email + password form</span></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="tick done">✓</span><span style="font-size:13px">Validation + errors</span></div>
+              <div style="display:flex;gap:10px;align-items:center"><span class="tick"></span><span style="font-size:13px">Redirect to dashboard</span></div>
+            </div>
+          </div>
+          <div style="border:2px dashed #b9b3a8;border-radius:9px;padding:10px;font-size:12px;color:#a49d90">📎 Resources: 2 links + code snippet</div>
+          <div class="abtn">✓ Mark complete</div>
+          <div style="border:2px solid #ff6a45;border-radius:12px;padding:14px;text-align:center;background:#fff4f0">
+            <div class="flame" style="font-size:24px">🎉 +50 XP · streak 🔥 8</div>
+            <div style="font-size:12px;color:#a49d90;margin-top:4px">on-completion state</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 1g PROGRESS -->
+    <div class="dv-opt" id="1g">
+      <div class="dv-olabel"><a class="dv-oid" href="#1g">1g</a>Progress &amp; streak</div>
+      <div class="frame" style="width:320px">
+        <div style="padding:16px 18px;display:flex;flex-direction:column;gap:14px">
+          <div style="text-align:center">
+            <div class="flame" style="font-size:56px;line-height:1">🔥 7</div>
+            <div class="hand" style="font-size:20px">day streak — don't break it</div>
+          </div>
+          <div style="display:flex;gap:10px">
+            <div style="flex:1;border:2px solid #1a1a1a;border-radius:10px;padding:10px;text-align:center"><div style="font-size:24px;font-weight:700">8</div><div style="font-size:11px;color:#a49d90">days shipped</div></div>
+            <div style="flex:1;border:2px solid #1a1a1a;border-radius:10px;padding:10px;text-align:center"><div style="font-size:24px;font-weight:700">27%</div><div style="font-size:11px;color:#a49d90">complete</div></div>
+            <div style="flex:1;border:2px solid #1a1a1a;border-radius:10px;padding:10px;text-align:center"><div style="font-size:24px;font-weight:700">22</div><div style="font-size:11px;color:#a49d90">to launch</div></div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px">This month</div>
+            <div style="display:grid;grid-template-columns:repeat(10,1fr);gap:5px">
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ffb59e"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:1.5px solid #1a1a1a;border-radius:4px;background:#ff6a45"></span>
+              <span style="aspect-ratio:1;border:2px solid #ff6a45;border-radius:4px"></span>
+              <span style="aspect-ratio:1;border:1.5px dashed #b9b3a8;border-radius:4px"></span>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:8px">Badges</div>
+            <div style="display:flex;gap:12px">
+              <div style="text-align:center"><div style="width:44px;height:44px;border:2px solid #1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">🥇</div><div style="font-size:10px;margin-top:3px">First ship</div></div>
+              <div style="text-align:center"><div style="width:44px;height:44px;border:2px solid #1a1a1a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">🔥</div><div style="font-size:10px;margin-top:3px">7-day</div></div>
+              <div style="text-align:center;opacity:.35"><div style="width:44px;height:44px;border:2px dashed #b9b3a8;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px">🚀</div><div style="font-size:10px;margin-top:3px">Launch</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <p class="dv-next">Try next: "flesh out <a class="dv-oid" href="#1a">1a</a> landing with real copy" · "show <a class="dv-oid" href="#1c">1c</a> as a chat-only flow instead" · "add an empty/first-day state for <a class="dv-oid" href="#1d">1d</a>" · "new directions for the dashboard"</p>
+</section>
+</x-dc>
+</body>
+</html>

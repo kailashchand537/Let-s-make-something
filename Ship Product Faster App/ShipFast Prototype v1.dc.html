@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0F1419;font-family:Sora,system-ui,sans-serif;color:#EAF0F2;-webkit-font-smoothing:antialiased}
+  a{color:#C6F432;text-decoration:none}a:hover{color:#d7fa5c}
+  input,button{font-family:inherit}
+  input{outline:none}
+  input::placeholder{color:#5D6E79}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-thumb{background:#253039;border-radius:8px}
+  @keyframes sfRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes sfPop{0%{transform:scale(.86);opacity:0}60%{transform:scale(1.04)}100%{transform:scale(1);opacity:1}}
+  @keyframes sfSpin{to{transform:rotate(360deg)}}
+  @keyframes sfPulse{0%,100%{opacity:.35}50%{opacity:1}}
+  @keyframes sfBar{from{width:0}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#0F1419">
+
+<!-- ══════════════ LANDING ══════════════ -->
+<sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+<div style="max-width:1180px;margin:0 auto;padding:0 28px 90px">
+
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:26px 0">
+    <div style="display:flex;align-items:center;gap:9px;font-weight:700;font-size:18px;letter-spacing:-.02em">
+      <span style="width:26px;height:26px;border-radius:7px;background:#C6F432;color:#0F1419;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">▲</span>ShipFast
+    </div>
+    <div style="display:flex;align-items:center;gap:20px">
+      <span onClick="{{ goAuth }}" style="font-size:14px;color:#8A9AA5;cursor:pointer">Log in</span>
+      <span onClick="{{ goBuilder }}" style="cursor:pointer;background:#C6F432;color:#0F1419;font-weight:600;font-size:14px;padding:10px 18px;border-radius:10px" style-hover="background:#d7fa5c">Start free</span>
+    </div>
+  </div>
+
+  <!-- hero: problem + live sample side by side -->
+  <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center;padding:56px 0 40px">
+    <div style="animation:sfRise .6s ease both">
+      <div style="display:inline-flex;align-items:center;gap:8px;border:1px solid #253039;border-radius:100px;padding:6px 13px;font-size:12px;color:#8A9AA5;margin-bottom:26px">
+        <span style="width:6px;height:6px;border-radius:50%;background:#C6F432"></span>For solo founders who keep almost shipping
+      </div>
+      <h1 style="font-size:62px;line-height:1.02;letter-spacing:-.035em;font-weight:700;margin:0 0 22px">You keep starting.<br><span style="color:#5D6E79">You never ship.</span></h1>
+      <p style="font-size:17px;line-height:1.6;color:#8A9AA5;margin:0 0 18px;max-width:480px;text-wrap:pretty">Tab after tab of half-built projects. Not because you can't build it, but because "launch" was never broken into something you could do today.</p>
+      <p style="font-size:17px;line-height:1.6;color:#EAF0F2;margin:0 0 34px;max-width:480px;text-wrap:pretty">ShipFast turns your idea into a dated challenge. One task each weekday. Structured, not rigid.</p>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+        <span onClick="{{ goBuilder }}" style="cursor:pointer;background:#C6F432;color:#0F1419;font-weight:600;font-size:16px;padding:15px 26px;border-radius:12px" style-hover="background:#d7fa5c">Build my plan — free →</span>
+        <span style="font-size:13px;color:#5D6E79">No card. Plan in 60 seconds.</span>
+      </div>
+    </div>
+
+    <!-- live sample plan -->
+    <div style="animation:sfRise .7s .1s ease both">
+      <div style="background:#161C22;border:1px solid #253039;border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -30px rgba(0,0,0,.8)">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #253039">
+          <div style="font-size:13px;font-weight:600">AI recipe app · 20-day challenge</div>
+          <div style="font-size:11px;color:#C6F432;display:flex;align-items:center;gap:6px"><span style="width:6px;height:6px;border-radius:50%;background:#C6F432;animation:sfPulse 2s infinite"></span>live sample</div>
+        </div>
+        <div style="padding:14px 18px 18px;display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ sampleRows }}" as="row" hint-placeholder-count="5">
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:12px;background:{{ row.bg }};border:1px solid {{ row.bd }}">
+              <span style="width:24px;height:24px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;background:{{ row.chipBg }};color:{{ row.chipFg }}">{{ row.mark }}</span>
+              <span style="font-size:13.5px;color:{{ row.fg }};font-weight:{{ row.fw }}">{{ row.label }}</span>
+              <span style="margin-left:auto;font-size:11px;color:#5D6E79">{{ row.meta }}</span>
+            </div>
+          </sc-for>
+          <div onClick="{{ cycleSample }}" style="cursor:pointer;text-align:center;font-size:12px;color:#8A9AA5;padding:8px;border-radius:10px;border:1px dashed #253039;margin-top:4px" style-hover="color:#C6F432;border-color:#3a4b57">see another sample plan ↻</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- how it works -->
+  <div style="padding:40px 0 0;border-top:1px solid #1b2329;margin-top:30px">
+    <div style="font-size:12px;letter-spacing:.14em;color:#5D6E79;text-transform:uppercase;margin-bottom:26px">How it works</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:22px">
+        <div style="font-size:13px;color:#C6F432;font-weight:600;margin-bottom:12px">01</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em">Answer five questions</div>
+        <div style="font-size:14px;line-height:1.55;color:#8A9AA5">What you're building, how far along you are, and how many hours a day you actually have.</div>
+      </div>
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:22px">
+        <div style="font-size:13px;color:#C6F432;font-weight:600;margin-bottom:12px">02</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em">Get a dated plan</div>
+        <div style="font-size:14px;line-height:1.55;color:#8A9AA5">A one-week sprint or 20-day challenge, split into themed weeks and one task per weekday. Edit it by chat.</div>
+      </div>
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:22px">
+        <div style="font-size:13px;color:#C6F432;font-weight:600;margin-bottom:12px">03</div>
+        <div style="font-size:17px;font-weight:600;margin-bottom:8px;letter-spacing:-.01em">Ship one thing a day</div>
+        <div style="font-size:14px;line-height:1.55;color:#8A9AA5">Open the app, see today's single task, do it, keep the streak. Miss a day and the plan re-flows.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:56px;background:#C6F432;border-radius:20px;padding:44px 36px;text-align:center;color:#0F1419">
+    <div style="font-size:34px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">Your launch has a date now.</div>
+    <div style="font-size:15px;opacity:.7;margin-bottom:26px">Pick a challenge length and start today.</div>
+    <span onClick="{{ goBuilder }}" style="cursor:pointer;display:inline-block;background:#0F1419;color:#EAF0F2;font-weight:600;font-size:16px;padding:15px 30px;border-radius:12px" style-hover="background:#1C242B">Start my challenge →</span>
+  </div>
+</div>
+</sc-if>
+
+<!-- ══════════════ AUTH ══════════════ -->
+<sc-if value="{{ isAuth }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 24px">
+  <div style="width:100%;max-width:390px;animation:sfRise .45s ease both">
+    <div onClick="{{ goLanding }}" style="cursor:pointer;display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;justify-content:center;margin-bottom:30px">
+      <span style="width:26px;height:26px;border-radius:7px;background:#C6F432;color:#0F1419;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800">▲</span>ShipFast
+    </div>
+    <div style="background:#161C22;border:1px solid #253039;border-radius:20px;padding:26px">
+      <div style="display:flex;background:#0F1419;border:1px solid #253039;border-radius:11px;padding:4px;margin-bottom:22px">
+        <div onClick="{{ setLogin }}" style="flex:1;text-align:center;padding:9px;font-size:13.5px;font-weight:500;border-radius:8px;cursor:pointer;background:{{ loginTabBg }};color:{{ loginTabFg }}">Log in</div>
+        <div onClick="{{ setSignup }}" style="flex:1;text-align:center;padding:9px;font-size:13.5px;font-weight:500;border-radius:8px;cursor:pointer;background:{{ signupTabBg }};color:{{ signupTabFg }}">Sign up</div>
+      </div>
+      <div style="font-size:12px;color:#8A9AA5;margin-bottom:7px">Email</div>
+      <input type="email" value="{{ email }}" onChange="{{ onEmail }}" placeholder="you@domain.com" style="width:100%;background:#0F1419;border:1px solid #253039;border-radius:11px;padding:13px 14px;color:#EAF0F2;font-size:14px;margin-bottom:16px" style-focus="border-color:#C6F432">
+      <div style="font-size:12px;color:#8A9AA5;margin-bottom:7px">Password</div>
+      <input type="password" value="{{ password }}" onChange="{{ onPassword }}" placeholder="••••••••" style="width:100%;background:#0F1419;border:1px solid #253039;border-radius:11px;padding:13px 14px;color:#EAF0F2;font-size:14px" style-focus="border-color:#C6F432">
+      <sc-if value="{{ authError }}">
+        <div style="font-size:12.5px;color:#FF7A66;margin-top:10px">{{ authError }}</div>
+      </sc-if>
+      <div onClick="{{ submitAuth }}" style="cursor:pointer;margin-top:20px;background:#C6F432;color:#0F1419;font-weight:600;font-size:15px;padding:14px;border-radius:11px;text-align:center" style-hover="background:#d7fa5c">{{ authCta }}</div>
+      <div style="display:flex;align-items:center;gap:12px;margin:20px 0;color:#5D6E79;font-size:12px">
+        <span style="flex:1;height:1px;background:#253039"></span>or<span style="flex:1;height:1px;background:#253039"></span>
+      </div>
+      <div onClick="{{ submitAuth }}" style="cursor:pointer;border:1px solid #253039;border-radius:11px;padding:13px;text-align:center;font-size:14px;color:#EAF0F2" style-hover="border-color:#3a4b57;background:#1C242B">Continue with Google</div>
+    </div>
+    <div style="text-align:center;font-size:12px;color:#5D6E79;margin-top:18px">Any email and password works in this prototype.</div>
+  </div>
+</div>
+</sc-if>
+
+<!-- ══════════════ PLAN BUILDER ══════════════ -->
+<sc-if value="{{ isBuilder }}">
+<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:36px 24px">
+  <div style="width:100%;max-width:560px">
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+      <div onClick="{{ goLanding }}" style="cursor:pointer;display:flex;align-items:center;gap:9px;font-weight:700;font-size:16px">
+        <span style="width:24px;height:24px;border-radius:7px;background:#C6F432;color:#0F1419;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">▲</span>ShipFast
+      </div>
+      <div style="font-size:12px;color:#5D6E79">{{ stepLabel }}</div>
+    </div>
+    <div style="height:3px;background:#1C242B;border-radius:3px;overflow:hidden;margin-bottom:32px">
+      <div style="height:100%;background:#C6F432;transition:width .4s ease;width:{{ stepPct }}%"></div>
+    </div>
+
+    <!-- Q1 idea -->
+    <sc-if value="{{ atStep1 }}">
+    <div style="animation:sfRise .4s ease both">
+      <h2 style="font-size:30px;font-weight:700;letter-spacing:-.03em;margin:0 0 10px">What are you building?</h2>
+      <p style="color:#8A9AA5;font-size:15px;margin:0 0 24px">One line is enough. Be specific about who it's for.</p>
+      <input value="{{ idea }}" onChange="{{ onIdea }}" placeholder="e.g. A habit tracker for runners" style="width:100%;background:#161C22;border:1px solid #253039;border-radius:13px;padding:16px;color:#EAF0F2;font-size:16px" style-focus="border-color:#C6F432">
+    </div>
+    </sc-if>
+
+    <!-- Q2 type -->
+    <sc-if value="{{ atStep2 }}">
+    <div style="animation:sfRise .4s ease both">
+      <h2 style="font-size:30px;font-weight:700;letter-spacing:-.03em;margin:0 0 10px">What kind of product?</h2>
+      <p style="color:#8A9AA5;font-size:15px;margin:0 0 24px">This changes the shape of your plan.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+        <sc-for list="{{ typeOptions }}" as="opt" hint-placeholder-count="4">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:16px">
+            <div style="font-size:15px;font-weight:600;margin-bottom:5px;color:{{ opt.fg }}">{{ opt.label }}</div>
+            <div style="font-size:12.5px;color:#8A9AA5;line-height:1.45">{{ opt.hint }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- Q3 stage -->
+    <sc-if value="{{ atStep3 }}">
+    <div style="animation:sfRise .4s ease both">
+      <h2 style="font-size:30px;font-weight:700;letter-spacing:-.03em;margin:0 0 10px">Where are you now?</h2>
+      <p style="color:#8A9AA5;font-size:15px;margin:0 0 24px">So we don't hand you tasks you finished last month.</p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <sc-for list="{{ stageOptions }}" as="opt" hint-placeholder-count="4">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;display:flex;align-items:center;gap:14px;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:15px 16px">
+            <span style="width:18px;height:18px;border-radius:50%;flex:none;border:2px solid {{ opt.dot }};background:{{ opt.dotFill }}"></span>
+            <span style="font-size:15px;font-weight:500;color:{{ opt.fg }}">{{ opt.label }}</span>
+            <span style="margin-left:auto;font-size:12px;color:#5D6E79">{{ opt.hint }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- Q4 hours + length -->
+    <sc-if value="{{ atStep4 }}">
+    <div style="animation:sfRise .4s ease both">
+      <h2 style="font-size:30px;font-weight:700;letter-spacing:-.03em;margin:0 0 10px">How much time, and for how long?</h2>
+      <p style="color:#8A9AA5;font-size:15px;margin:0 0 28px">Be honest. An over-packed plan is the thing that kills momentum.</p>
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:20px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:16px">
+          <span style="font-size:14px;color:#8A9AA5">Hours a day</span>
+          <span style="font-size:22px;font-weight:700;color:#C6F432">{{ hoursLabel }}</span>
+        </div>
+        <input type="range" min="1" max="8" step="1" value="{{ hours }}" onChange="{{ onHours }}" style="width:100%;accent-color:#C6F432">
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#5D6E79;margin-top:6px"><span>1h</span><span>8h</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px">
+        <sc-for list="{{ lengthOptions }}" as="opt" hint-placeholder-count="2">
+          <div onClick="{{ opt.pick }}" style="cursor:pointer;border:1px solid {{ opt.bd }};background:{{ opt.bg }};border-radius:13px;padding:18px">
+            <div style="font-size:17px;font-weight:700;margin-bottom:5px;color:{{ opt.fg }}">{{ opt.label }}</div>
+            <div style="font-size:12.5px;color:#8A9AA5;line-height:1.45">{{ opt.hint }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- generating -->
+    <sc-if value="{{ isGenerating }}">
+    <div style="text-align:center;padding:50px 0;animation:sfRise .4s ease both">
+      <div style="width:46px;height:46px;border:3px solid #253039;border-top-color:#C6F432;border-radius:50%;margin:0 auto 24px;animation:sfSpin .9s linear infinite"></div>
+      <div style="font-size:19px;font-weight:600;margin-bottom:8px">Building your challenge</div>
+      <div style="font-size:14px;color:#8A9AA5">{{ genMessage }}</div>
+    </div>
+    </sc-if>
+
+    <!-- review -->
+    <sc-if value="{{ atReview }}">
+    <div style="animation:sfRise .4s ease both">
+      <h2 style="font-size:28px;font-weight:700;letter-spacing:-.03em;margin:0 0 8px">Here's your plan</h2>
+      <p style="color:#8A9AA5;font-size:15px;margin:0 0 22px">{{ reviewSummary }} Change anything before you commit.</p>
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:8px;margin-bottom:16px;max-height:300px;overflow-y:auto">
+        <sc-for list="{{ reviewWeeks }}" as="wk" hint-placeholder-count="4">
+          <div style="padding:12px 14px 6px">
+            <div style="font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#C6F432;margin-bottom:10px">{{ wk.title }}</div>
+            <sc-for list="{{ wk.tasks }}" as="t" hint-placeholder-count="3">
+              <div style="display:flex;gap:11px;padding:7px 0;font-size:13.5px;color:#B9C6CE">
+                <span style="color:#5D6E79;min-width:44px">Day {{ t.day }}</span>{{ t.title }}
+              </div>
+            </sc-for>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#161C22;border:1px solid #253039;border-radius:16px;padding:16px;margin-bottom:18px">
+        <div style="font-size:12px;color:#8A9AA5;margin-bottom:12px">Refine by chat</div>
+        <sc-for list="{{ chat }}" as="m" hint-placeholder-count="0">
+          <div style="display:flex;justify-content:{{ m.align }};margin-bottom:9px">
+            <div style="max-width:82%;font-size:13.5px;line-height:1.5;padding:10px 13px;border-radius:13px;background:{{ m.bg }};color:{{ m.fg }}">{{ m.text }}</div>
+          </div>
+        </sc-for>
+        <div style="display:flex;gap:9px;margin-top:4px">
+          <input value="{{ chatDraft }}" onChange="{{ onChatDraft }}" onKeyDown="{{ onChatKey }}" placeholder="Make week 1 lighter…" style="flex:1;background:#0F1419;border:1px solid #253039;border-radius:11px;padding:12px 13px;color:#EAF0F2;font-size:13.5px" style-focus="border-color:#C6F432">
+          <div onClick="{{ sendChat }}" style="cursor:pointer;background:#1C242B;border:1px solid #253039;border-radius:11px;padding:12px 15px;font-size:14px" style-hover="border-color:#C6F432;color:#C6F432">↑</div>
+        </div>
+      </div>
+      <div onClick="{{ commitPlan }}" style="cursor:pointer;background:#C6F432;color:#0F1419;font-weight:600;font-size:16px;padding:15px;border-radius:12px;text-align:center" style-hover="background:#d7fa5c">Start Day 1 →</div>
+    </div>
+    </sc-if>
+
+    <!-- nav -->
+    <sc-if value="{{ showBuilderNav }}">
+    <div style="display:flex;gap:12px;margin-top:28px">
+      <div onClick="{{ prevStep }}" style="cursor:pointer;border:1px solid #253039;border-radius:12px;padding:14px 20px;font-size:14.5px;color:#8A9AA5" style-hover="border-color:#3a4b57;color:#EAF0F2">Back</div>
+      <div onClick="{{ nextStep }}" style="cursor:pointer;flex:1;background:{{ nextBg }};color:{{ nextFg }};font-weight:600;font-size:15px;padding:14px;border-radius:12px;text-align:center;opacity:{{ nextOpacity }}">{{ nextLabel }}</div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+</sc-if>
+
+<!-- ══════════════ APP ══════════════ -->
+<sc-if value="{{ isApp }}">
+<div style="min-height:100vh;display:flex;justify-content:center;padding:22px 16px 0">
+  <div style="width:100%;max-width:430px;padding-bottom:110px">
+
+    <!-- header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 2px 18px">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="width:24px;height:24px;border-radius:7px;background:#C6F432;color:#0F1419;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800">▲</span>
+        <span style="font-size:13px;color:#8A9AA5">{{ daysLeftLabel }}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="display:flex;align-items:center;gap:6px;border:1px solid #253039;border-radius:100px;padding:6px 12px;font-size:13px;font-weight:600"><span>🔥</span>{{ streak }}</div>
+        <div style="width:32px;height:32px;border-radius:50%;background:#1C242B;border:1px solid #253039"></div>
+      </div>
+    </div>
+
+    <!-- ── TODAY ── -->
+    <sc-if value="{{ tabToday }}">
+    <div style="animation:sfRise .4s ease both">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px">
+        <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#5D6E79">{{ weekTheme }}</div>
+        <div style="font-size:12px;color:#5D6E79">{{ progressLabel }}</div>
+      </div>
+      <div style="height:5px;background:#1C242B;border-radius:5px;overflow:hidden;margin-bottom:24px">
+        <div style="height:100%;background:#C6F432;border-radius:5px;transition:width .5s ease;width:{{ progressPct }}%"></div>
+      </div>
+
+      <sc-if value="{{ allDone }}">
+        <div style="background:#C6F432;color:#0F1419;border-radius:20px;padding:30px 24px;text-align:center;animation:sfPop .5s ease both">
+          <div style="font-size:40px;margin-bottom:10px">✓</div>
+          <div style="font-size:24px;font-weight:700;letter-spacing:-.02em;margin-bottom:8px">Today is shipped.</div>
+          <div style="font-size:14px;opacity:.72;margin-bottom:22px">Streak at {{ streak }} days. Next task unlocks tomorrow — or pull it forward.</div>
+          <div onClick="{{ pullForward }}" style="cursor:pointer;display:inline-block;background:#0F1419;color:#EAF0F2;font-weight:600;font-size:14.5px;padding:13px 22px;border-radius:11px">Pull tomorrow's task forward</div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ launched }}">
+        <div style="background:#C6F432;color:#0F1419;border-radius:20px;padding:34px 24px;text-align:center;animation:sfPop .5s ease both">
+          <div style="font-size:46px;margin-bottom:12px">🚀</div>
+          <div style="font-size:27px;font-weight:700;letter-spacing:-.03em;margin-bottom:10px">It's live.</div>
+          <div style="font-size:14.5px;line-height:1.55;opacity:.72;margin-bottom:24px;text-wrap:pretty">{{ launchLine }}</div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div onClick="{{ openChat }}" style="cursor:pointer;background:#0F1419;color:#EAF0F2;font-weight:600;font-size:14.5px;padding:14px;border-radius:11px">Plan the next challenge</div>
+            <div onClick="{{ goStreak }}" style="cursor:pointer;border:1px solid rgba(15,20,25,.28);font-weight:500;font-size:14px;padding:13px;border-radius:11px">See your badges</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ hasToday }}">
+      <div style="background:#161C22;border:1px solid #253039;border-radius:20px;padding:24px;position:relative;overflow:hidden">
+        <div style="position:absolute;inset:0 auto 0 0;width:3px;background:#C6F432"></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+          <div style="font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#C6F432">Today's one thing</div>
+          <div style="font-size:12px;color:#5D6E79">Day {{ currentDay }} · ~{{ todayHours }}</div>
+        </div>
+        <div style="font-size:27px;font-weight:700;letter-spacing:-.025em;line-height:1.15;margin-bottom:12px;text-wrap:pretty">{{ todayTitle }}</div>
+        <div style="font-size:14.5px;line-height:1.6;color:#8A9AA5;margin-bottom:20px;text-wrap:pretty">{{ todayBlurb }}</div>
+        <div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#5D6E79;margin-bottom:20px">
+          <span style="color:#C6F432">{{ todaySubDone }}</span> of {{ todaySubTotal }} steps done
+        </div>
+        <div onClick="{{ shipToday }}" style="cursor:pointer;background:#C6F432;color:#0F1419;font-weight:600;font-size:15.5px;padding:15px;border-radius:12px;text-align:center;margin-bottom:12px" style-hover="background:#d7fa5c">Mark shipped ✓</div>
+        <div style="display:flex;gap:10px">
+          <div onClick="{{ openTask }}" style="cursor:pointer;flex:1;border:1px solid #253039;border-radius:11px;padding:12px;text-align:center;font-size:13.5px;color:#B9C6CE" style-hover="border-color:#3a4b57">Open steps</div>
+          <div onClick="{{ openHelp }}" style="cursor:pointer;flex:1;border:1px solid #253039;border-radius:11px;padding:12px;text-align:center;font-size:13.5px;color:#B9C6CE" style-hover="border-color:#3a4b57">I'm stuck</div>
+        </div>
+        <div onClick="{{ openSkip }}" style="cursor:pointer;text-align:center;font-size:12.5px;color:#5D6E79;margin-top:14px" style-hover="color:#8A9AA5">Can't today →</div>
+      </div>
+      </sc-if>
+
+      <div style="display:flex;gap:11px;margin-top:16px">
+        <div style="flex:1;background:#161C22;border:1px solid #253039;border-radius:14px;padding:15px">
+          <div style="font-size:21px;font-weight:700">{{ doneCount }}</div>
+          <div style="font-size:11.5px;color:#5D6E79;margin-top:3px">days shipped</div>
+        </div>
+        <div style="flex:1;background:#161C22;border:1px solid #253039;border-radius:14px;padding:15px">
+          <div style="font-size:21px;font-weight:700">{{ daysLeft }}</div>
+          <div style="font-size:11.5px;color:#5D6E79;margin-top:3px">to launch</div>
+        </div>
+        <sc-if value="{{ hasNextBadge }}" hint-placeholder-val="{{ true }}">
+        <div style="flex:1;background:#161C22;border:1px solid #253039;border-radius:14px;padding:15px">
+          <div style="font-size:21px;font-weight:700">{{ nextBadgeIn }}</div>
+          <div style="font-size:11.5px;color:#5D6E79;margin-top:3px">to next badge</div>
+        </div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ── PLAN ── -->
+    <sc-if value="{{ tabPlan }}">
+    <div style="animation:sfRise .4s ease both">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div style="font-size:24px;font-weight:700;letter-spacing:-.025em">{{ planTitle }}</div>
+        <div style="display:flex;background:#161C22;border:1px solid #253039;border-radius:10px;padding:3px">
+          <div onClick="{{ setWeekView }}" style="cursor:pointer;padding:7px 13px;font-size:12.5px;border-radius:7px;background:{{ weekTabBg }};color:{{ weekTabFg }}">Week</div>
+          <div onClick="{{ setMonthView }}" style="cursor:pointer;padding:7px 13px;font-size:12.5px;border-radius:7px;background:{{ monthTabBg }};color:{{ monthTabFg }}">All</div>
+        </div>
+      </div>
+
+      <sc-for list="{{ planWeeks }}" as="wk" hint-placeholder-count="2">
+        <div style="margin-bottom:26px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div style="font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:{{ wk.color }}">{{ wk.title }}</div>
+            <div style="flex:1;height:1px;background:#1b2329"></div>
+            <div style="font-size:11.5px;color:#5D6E79">{{ wk.count }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <sc-for list="{{ wk.tasks }}" as="t" hint-placeholder-count="5">
+              <div onClick="{{ t.open }}" style="cursor:pointer;display:flex;align-items:center;gap:13px;padding:13px 14px;border-radius:13px;background:{{ t.bg }};border:1px solid {{ t.bd }}" style-hover="border-color:#3a4b57">
+                <span style="width:26px;height:26px;border-radius:8px;flex:none;display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:600;background:{{ t.chipBg }};color:{{ t.chipFg }}">{{ t.mark }}</span>
+                <div style="min-width:0">
+                  <div style="font-size:14px;font-weight:{{ t.fw }};color:{{ t.fg }};line-height:1.3">{{ t.title }}</div>
+                  <div style="font-size:11.5px;color:#5D6E79;margin-top:3px">Day {{ t.day }} · {{ t.hours }}</div>
+                </div>
+                <span style="margin-left:auto;font-size:11.5px;color:{{ t.statusFg }}">{{ t.status }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ wk.milestone }}">
+            <div style="margin-top:10px;display:flex;align-items:center;gap:13px;padding:14px;border-radius:13px;border:1px dashed {{ wk.msBd }};background:{{ wk.msBg }}">
+              <span style="font-size:20px">{{ wk.msIcon }}</span>
+              <div>
+                <div style="font-size:13.5px;font-weight:600;color:{{ wk.msFg }}">Milestone · {{ wk.milestone }}</div>
+                <div style="font-size:11.5px;color:#5D6E79;margin-top:2px">{{ wk.msNote }}</div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+
+      <div onClick="{{ openChat }}" style="cursor:pointer;border:1px dashed #253039;border-radius:13px;padding:15px;text-align:center;font-size:13.5px;color:#8A9AA5" style-hover="border-color:#C6F432;color:#C6F432">Ask AI to reshuffle the plan</div>
+    </div>
+    </sc-if>
+
+    <!-- ── STREAK ── -->
+    <sc-if value="{{ tabStreak }}">
+    <div style="animation:sfRise .4s ease both">
+      <div style="background:#161C22;border:1px solid #253039;border-radius:20px;padding:28px 22px;text-align:center;margin-bottom:16px">
+        <div style="font-size:54px;line-height:1;margin-bottom:6px">🔥</div>
+        <div style="font-size:44px;font-weight:800;letter-spacing:-.04em;color:#C6F432;line-height:1">{{ streak }}</div>
+        <div style="font-size:14px;color:#8A9AA5;margin-top:6px">day streak · {{ streakNote }}</div>
+      </div>
+
+      <div style="background:#161C22;border:1px solid #253039;border-radius:18px;padding:20px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:16px">Challenge grid</div>
+        <div style="display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px">
+          <sc-for list="{{ gridCells }}" as="c" hint-placeholder-count="30">
+            <div title="{{ c.tip }}" style="aspect-ratio:1;border-radius:6px;background:{{ c.bg }};border:1px solid {{ c.bd }}"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:16px;margin-top:16px;font-size:11px;color:#5D6E79">
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;background:#C6F432"></span>shipped</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;background:#3F4E23"></span>partial</span>
+          <span style="display:flex;align-items:center;gap:6px"><span style="width:9px;height:9px;border-radius:3px;border:1px solid #253039"></span>ahead</span>
+        </div>
+      </div>
+
+      <div style="background:#161C22;border:1px solid #253039;border-radius:18px;padding:20px">
+        <div style="font-size:13px;font-weight:600;margin-bottom:18px">Badges</div>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px">
+          <sc-for list="{{ badges }}" as="b" hint-placeholder-count="4">
+            <div style="text-align:center;opacity:{{ b.op }}">
+              <div style="aspect-ratio:1;border-radius:50%;border:1px {{ b.style }} {{ b.bd }};background:{{ b.bg }};display:flex;align-items:center;justify-content:center;font-size:22px">{{ b.icon }}</div>
+              <div style="font-size:10.5px;color:#8A9AA5;margin-top:7px;line-height:1.3">{{ b.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ── TASK DETAIL ── -->
+    <sc-if value="{{ tabTask }}">
+    <div style="animation:sfRise .35s ease both">
+      <div onClick="{{ backFromTask }}" style="cursor:pointer;font-size:13px;color:#8A9AA5;margin-bottom:16px" style-hover="color:#EAF0F2">← Back</div>
+      <div style="font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:#C6F432;margin-bottom:10px">Day {{ taskDay }} · {{ taskStatusLabel }}</div>
+      <h2 style="font-size:28px;font-weight:700;letter-spacing:-.03em;line-height:1.15;margin:0 0 14px;text-wrap:pretty">{{ taskTitle }}</h2>
+      <p style="font-size:14.5px;line-height:1.6;color:#8A9AA5;margin:0 0 24px;text-wrap:pretty">{{ taskBlurb }}</p>
+
+      <div style="background:#161C22;border:1px solid #253039;border-radius:18px;padding:20px;margin-bottom:16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-size:13px;font-weight:600">Steps</div>
+          <div style="font-size:12px;color:#5D6E79">{{ taskStepDone }}/{{ taskStepTotal }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ taskSteps }}" as="s" hint-placeholder-count="3">
+            <div onClick="{{ s.toggle }}" style="cursor:pointer;display:flex;align-items:center;gap:13px;padding:11px 8px;border-radius:10px" style-hover="background:#1C242B">
+              <span style="width:21px;height:21px;border-radius:7px;flex:none;display:flex;align-items:center;justify-content:center;font-size:12px;border:1.5px solid {{ s.bd }};background:{{ s.bg }};color:#0F1419">{{ s.mark }}</span>
+              <span style="font-size:14px;color:{{ s.fg }};text-decoration:{{ s.deco }}">{{ s.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="background:#161C22;border:1px solid #253039;border-radius:18px;padding:18px;margin-bottom:16px">
+        <div style="font-size:12px;color:#8A9AA5;margin-bottom:12px">Resources</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <sc-for list="{{ taskResources }}" as="r" hint-placeholder-count="2">
+            <div style="display:flex;align-items:center;gap:11px;font-size:13.5px;color:#B9C6CE;cursor:pointer" style-hover="color:#C6F432">
+              <span style="width:26px;height:26px;border-radius:8px;background:#1C242B;display:flex;align-items:center;justify-content:center;font-size:12px">{{ r.icon }}</span>{{ r.label }}
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <sc-if value="{{ taskIsDone }}">
+        <div style="background:#1a2410;border:1px solid #3F4E23;border-radius:16px;padding:18px;text-align:center;animation:sfPop .4s ease both">
+          <div style="font-size:16px;font-weight:600;color:#C6F432;margin-bottom:4px">Shipped ✓</div>
+          <div style="font-size:12.5px;color:#8A9AA5">Streak went to {{ streak }}. Nothing else due today.</div>
+        </div>
+      </sc-if>
+      <sc-if value="{{ taskIsOpen }}">
+        <div onClick="{{ completeTask }}" style="cursor:pointer;background:{{ completeBg }};color:{{ completeFg }};font-weight:600;font-size:15.5px;padding:15px;border-radius:12px;text-align:center;margin-bottom:11px">{{ completeLabel }}</div>
+        <div onClick="{{ savePartial }}" style="cursor:pointer;border:1px solid #253039;border-radius:12px;padding:13px;text-align:center;font-size:13.5px;color:#8A9AA5" style-hover="border-color:#3a4b57;color:#EAF0F2">Save progress, finish tomorrow</div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- bottom nav -->
+    <div style="position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;background:linear-gradient(to top,#0F1419 62%,rgba(15,20,25,0));padding:14px 16px 18px;pointer-events:none">
+      <div style="width:100%;max-width:430px;display:flex;background:#161C22;border:1px solid #253039;border-radius:16px;padding:6px;pointer-events:auto">
+        <sc-for list="{{ navItems }}" as="n" hint-placeholder-count="3">
+          <div onClick="{{ n.go }}" style="flex:1;cursor:pointer;text-align:center;padding:10px 4px;border-radius:11px;background:{{ n.bg }}">
+            <div style="font-size:15px;line-height:1;margin-bottom:5px">{{ n.icon }}</div>
+            <div style="font-size:10.5px;font-weight:500;color:{{ n.fg }}">{{ n.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- sheets -->
+<sc-if value="{{ sheetOpen }}">
+<div onClick="{{ closeSheet }}" style="position:fixed;inset:0;background:rgba(6,9,12,.72);display:flex;align-items:flex-end;justify-content:center;padding:16px;z-index:50">
+  <div style="width:100%;max-width:430px;background:#161C22;border:1px solid #253039;border-radius:22px;padding:24px;animation:sfRise .28s ease both">
+    <div style="font-size:19px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px">{{ sheetTitle }}</div>
+    <div style="font-size:14px;line-height:1.6;color:#8A9AA5;margin-bottom:20px;text-wrap:pretty">{{ sheetBody }}</div>
+    <sc-for list="{{ sheetActions }}" as="a" hint-placeholder-count="0">
+      <div onClick="{{ a.run }}" style="cursor:pointer;padding:14px;border-radius:12px;text-align:center;font-size:14.5px;font-weight:{{ a.fw }};margin-bottom:10px;background:{{ a.bg }};color:{{ a.fg }};border:1px solid {{ a.bd }}">{{ a.label }}</div>
+    </sc-for>
+    <div onClick="{{ closeSheet }}" style="cursor:pointer;text-align:center;font-size:13px;color:#5D6E79;padding:8px">Never mind</div>
+  </div>
+</div>
+</sc-if>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;landing&quot;,&quot;options&quot;:[&quot;landing&quot;,&quot;auth&quot;,&quot;builder&quot;,&quot;app&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Flow&quot;},&quot;defaultLength&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;20&quot;,&quot;options&quot;:[&quot;5&quot;,&quot;20&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Flow&quot;},&quot;startDay&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;min&quot;:1,&quot;max&quot;:20,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Flow&quot;}}">
+const LIME="#C6F432", INK="#0F1419", SURF="#161C22", SURF2="#1C242B", BD="#253039", TXT="#EAF0F2", MUT="#8A9AA5", DIM="#5D6E79";
+
+const WEEKS=[
+  {title:"Week 1 · Lock the scope",color:LIME,milestone:"One-sentence product",icon:"🎯",note:"Scope you can defend",
+   tasks:[["Write the one-line pitch","Say who it's for and what it replaces. If it takes two sentences, the scope is too big.","1h",["Draft three versions","Cut to one line","Post it somewhere public"]],
+          ["Cut the feature list to three","List everything you imagined, then keep only what the pitch needs on day one.","1h",["Brain-dump every feature","Mark must / later / never","Rewrite as three bullets"]],
+          ["Sketch the core screen","The one screen the product lives or dies on. Paper is fine.","2h",["Sketch three layouts","Pick one","Note what data it needs"]],
+          ["Pick the stack and scaffold","Boring choices only. You should be running a blank app by the end of today.","2h",["Create the repo","Install the framework","Deploy the empty shell"]],
+          ["Model your data","Two or three tables. Write them down before you write code.","2h",["Name the entities","Define fields","Create the migrations"]]]},
+  {title:"Week 2 · The build",color:LIME,milestone:"Working prototype",icon:"🔧",note:"Unlocks when week 2 closes",
+   tasks:[["Set up auth","Use a provider. Do not build sessions yourself this week.","2h",["Add the provider","Protect one route","Test a real signup"]],
+          ["Build the sign-up flow","Email, password, redirect. The first thing a stranger touches.","2h",["Email + password form","Validation and errors","Redirect to dashboard"]],
+          ["Build the empty state","What a brand-new account sees. Most founders skip this and it costs them.","1h",["Write the empty copy","Add one clear action","Test with a fresh account"]],
+          ["Core feature, version one","Ugly is fine. It has to work end to end by tonight.","3h",["Happy path only","Hard-code what you must","Use it yourself once"]],
+          ["Make it survive bad input","Every field a stranger can break, break it yourself first.","2h",["List failure cases","Add guards","Friendly error copy"]]]},
+  {title:"Week 3 · Polish & prep",color:MUT,milestone:"Ready to show",icon:"✨",note:"Locked until week 2 closes",
+   tasks:[["Write the landing page","Problem, then product. The same order that convinced you.","2h",["Headline and subhead","One screenshot","Single CTA"]],
+          ["Add payments","One plan, one price. Change it later.","2h",["Connect the provider","One checkout flow","Test a real charge"]],
+          ["Fix the five worst things","You already know what they are. Write them down and kill them.","2h",["List the five","Fix in order","Ship each one"]],
+          ["Set up analytics","Three events, not thirty.","1h",["Signup","Core action","Payment"]],
+          ["Get three strangers to use it","Watch them. Say nothing.","2h",["Recruit three","Watch silently","Write down every stumble"]]]},
+  {title:"Week 4 · Ship it",color:MUT,milestone:"Launched",icon:"🚀",note:"The finish line",
+   tasks:[["Write the launch post","What it is, who it's for, what it costs.","2h",["Draft it","Cut a third","Add the screenshot"]],
+          ["Line up the channels","Pick two places your people actually read.","1h",["Choose two","Read their rules","Schedule the posts"]],
+          ["Final pass on the funnel","Landing to signup to first value, in one sitting.","2h",["Walk it as a stranger","Fix every friction","Check on mobile"]],
+          ["Launch","Post it. Today. Not after one more feature.","2h",["Post everywhere","Reply to everything","Do not ship new code"]],
+          ["Read the feedback","Sort it into bugs, requests and noise.","1h",["Collect it all","Sort it","Pick next week's one thing"]]]}
+];
+
+const SPRINT=[{title:"Sprint · Ship it this week",color:LIME,milestone:"Launched",icon:"🚀",note:"The finish line",
+  tasks:WEEKS[3].tasks}];
+
+const SAMPLES=[
+  {name:"AI recipe app",rows:[["✓","Day 1 — Validate the idea","1h",1],["✓","Day 2 — Wireframe core screen","2h",1],["3","Day 3 — Build the data model","2h",2],["4","Day 4 — First working API call","3h",0],["5","Day 5 — Ship to a friend","1h",0]]},
+  {name:"Freelance invoicing tool",rows:[["✓","Day 1 — Pick one niche","1h",1],["✓","Day 2 — Sketch the invoice screen","2h",1],["3","Day 3 — Auth and accounts","2h",2],["4","Day 4 — PDF generation","3h",0],["5","Day 5 — Charge your first client","1h",0]]},
+  {name:"Portfolio site",rows:[["✓","Day 1 — Choose three projects","1h",1],["✓","Day 2 — Write the about page","1h",1],["3","Day 3 — Build the case study layout","2h",2],["4","Day 4 — Add real screenshots","2h",0],["5","Day 5 — Deploy on your domain","1h",0]]}
+];
+
+const GEN_MSGS=["Reading your project type…","Sizing tasks to your hours…","Splitting the work into themed weeks…","Placing milestones…"];
+
+class Component extends DCLogic {
+  state={
+    screen:"landing", sample:0,
+    authMode:"signup", email:"", password:"", authError:"",
+    step:1, idea:"", ptype:"Web app", stage:"Nothing built yet", hours:2, length:30,
+    generating:false, genIdx:0, reviewed:false,
+    chat:[], chatDraft:"",
+    tab:"today", planView:"week", openDay:null,
+    days:[], planDefs:WEEKS, currentDay:8, streak:7, sheet:null
+  };
+
+  componentDidMount(){
+    const len=Number(this.props.defaultLength)||20;
+    const defs=len===5?SPRINT:WEEKS;
+    const max=defs.reduce((n,w)=>n+w.tasks.length,0);
+    const day=Math.min(Number(this.props.startDay)||8,max);
+    this.setState({
+      days:this.buildDays(day,defs),
+      planDefs:defs,
+      currentDay:day,
+      streak:day-1,
+      screen:this.props.startScreen||"landing",
+      length:len
+    });
+  }
+
+  // defs() = the COMMITTED plan shape (mirrors state.days). Pass a length to
+  // resolve a shape the user is only previewing in the builder.
+  defs(len){ return len?(len===5?SPRINT:WEEKS):(this.state.planDefs||WEEKS); }
+
+  buildDays(today,defs){
+    const out=[]; let d=1;
+    defs.forEach((w,wi)=>w.tasks.forEach(t=>{
+      out.push({day:d,week:wi,title:t[0],blurb:t[1],hours:t[2],
+        steps:t[3].map(s=>({label:s,done:d<today})),
+        status:d<today?"done":(d===today?"open":"future")});
+      d++;
+    }));
+    return out;
+  }
+
+  set=(k,v)=>this.setState({[k]:v});
+  go=s=>()=>this.setState({screen:s});
+
+  cur(){ return this.state.days.find(x=>x.day===this.state.currentDay)||null; }
+  detail(){ const d=this.state.openDay??this.state.currentDay; return this.state.days.find(x=>x.day===d)||null; }
+
+  mutate(day,fn){
+    this.setState(s=>({days:s.days.map(x=>x.day===day?fn({...x,steps:x.steps.map(y=>({...y}))}):x)}));
+  }
+
+  shipDay(day){
+    this.mutate(day,x=>{x.status="done";x.steps=x.steps.map(s=>({...s,done:true}));return x;});
+    this.setState(s=>({streak:s.streak+1}));
+  }
+
+  renderVals(){
+    const s=this.state, defs=this.defs();
+    const tasksLen=defs.reduce((n,w)=>n+w.tasks.length,0);
+    const doneCount=s.days.filter(d=>d.status==="done").length;
+    const total=s.days.length||tasksLen;
+    const cur=this.cur();
+    const det=this.detail();
+    const stepPct=s.reviewed?100:(s.step/4)*100;
+    const sample=SAMPLES[s.sample%SAMPLES.length];
+
+    // ---- builder options
+    const mkPick=(key,val)=>()=>this.setState({[key]:val});
+    const opt=(active)=>active
+      ? {bd:LIME,bg:"#1a2410",fg:TXT,dot:LIME,dotFill:LIME}
+      : {bd:BD,bg:SURF,fg:TXT,dot:BD,dotFill:"transparent"};
+
+    const typeOptions=[["Web app","Dashboard, accounts, data"],["Mobile app","iOS or Android, store review"],["Marketing site","Pages, copy, SEO"],["SaaS with billing","Plans, checkout, trials"]]
+      .map(([label,hint])=>({label,hint,pick:mkPick("ptype",label),...opt(s.ptype===label)}));
+
+    const stageOptions=[["Nothing built yet","day 1"],["Designs or sketches done","skip ahead"],["Half-built prototype","skip ahead"],["Built, never launched","launch sprint"]]
+      .map(([label,hint])=>({label,hint,pick:mkPick("stage",label),...opt(s.stage===label)}));
+
+    const lengthOptions=[[5,"1-week sprint","Five launch tasks, Monday to Friday. For something nearly done."],[20,"20-day challenge","Four themed weeks, five weekdays each, launch on day 20."]]
+      .map(([v,label,hint])=>({label,hint,pick:mkPick("length",v),...opt(s.length===v)}));
+
+    const canNext = s.step===1 ? s.idea.trim().length>2 : true;
+
+    // ---- review plan
+    const reviewDefs=s.length===5?SPRINT:WEEKS;
+    const reviewWeeks=reviewDefs.map((w,wi)=>({
+      title:w.title,
+      tasks:w.tasks.map((t,i)=>({day:wi*5+i+1,title:t[0]}))
+    }));
+
+    // ---- plan tab
+    const visibleWeeks=(s.planView==="week")
+      ? defs.map((w,i)=>({w,i})).filter(({i})=>i===(cur?cur.week:0))
+      : defs.map((w,i)=>({w,i}));
+
+    const planWeeks=visibleWeeks.map(({w,i})=>{
+      const tasks=s.days.filter(d=>d.week===i).map(d=>{
+        const done=d.status==="done";
+        const isToday=d.day===s.currentDay&&!done;
+        return {day:d.day,title:d.title,hours:d.hours,
+          mark:done?"✓":String(d.day),
+          bg:isToday?"#1a2410":SURF, bd:isToday?LIME:BD,
+          chipBg:done?LIME:(isToday?LIME:SURF2), chipFg:done||isToday?INK:DIM,
+          fg:done?MUT:TXT, fw:isToday?"600":"500",
+          status:done?"shipped":(isToday?"today":"upcoming"),
+          statusFg:done?DIM:(isToday?LIME:DIM),
+          open:()=>this.setState({openDay:d.day,tab:"task"})};
+      });
+      const wDone=s.days.filter(d=>d.week===i&&d.status==="done").length;
+      const reached=wDone===tasks.length&&tasks.length>0;
+      return {title:w.title,color:i<=(cur?cur.week:0)?LIME:MUT,count:wDone+"/"+tasks.length,tasks,
+        milestone:w.milestone,msIcon:w.icon,msNote:reached?"Unlocked":w.note,
+        msBd:reached?LIME:BD, msBg:reached?"#1a2410":SURF, msFg:reached?LIME:TXT};
+    });
+
+    // ---- streak grid
+    const gridCells=s.days.map(d=>{
+      const done=d.status==="done";
+      const partial=d.steps.some(x=>x.done)&&!done;
+      return {bg:done?LIME:(partial?"#3F4E23":"transparent"),
+        bd:d.day===s.currentDay?LIME:BD, tip:"Day "+d.day+" · "+d.title};
+    });
+
+    const midMark=Math.max(2,Math.ceil(total/2));
+    const streakMark=Math.min(7,Math.max(3,total-1));
+    const badgeDefs=[["🥇","First ship",doneCount>=1],["🔥",streakMark+"-day streak",s.streak>=streakMark],["🔧","Halfway",doneCount>=midMark],["🚀","Launched",doneCount>=total]];
+    const nextMark=[1,midMark,total].find(n=>doneCount<n);
+    const badges=badgeDefs.map(([icon,label,earned])=>({icon,label,
+      op:earned?"1":"0.32", style:earned?"solid":"dashed", bd:earned?LIME:BD, bg:earned?"#1a2410":"transparent"}));
+
+    const navDefs=[["today","◎","Today"],["plan","▦","Plan"],["streak","🔥","Streak"]];
+    const navItems=navDefs.map(([k,icon,label])=>({icon,label,
+      bg:(s.tab===k||(k==="today"&&s.tab==="task"))?SURF2:"transparent",
+      fg:(s.tab===k||(k==="today"&&s.tab==="task"))?TXT:DIM,
+      go:()=>this.setState({tab:k,openDay:null})}));
+
+    // ---- sheets
+    const sheets={
+      skip:{title:"Can't ship today?",body:"The plan bends. Push today's task to tomorrow and everything after it shifts by a day — your streak pauses instead of resetting. Or drop the task entirely and keep the dates.",
+        actions:[["Push everything a day","primary",()=>this.setState({sheet:null})],["Drop this task, keep the dates","ghost",()=>{this.mutate(s.currentDay,x=>{x.status="done";return x;});this.setState({sheet:null});}]]},
+      help:{title:"Stuck on this one?",body:"Tell the AI what's blocking you and it will break today's task into smaller steps, or swap it for something you can finish in the hours you have left.",
+        actions:[["Break it into smaller steps","primary",()=>{this.mutate(s.currentDay,x=>{x.steps=[...x.steps,{label:"Smaller: just the first field",done:false},{label:"Smaller: hard-code the rest",done:false}];return x;});this.setState({sheet:null,tab:"task",openDay:s.currentDay});}],["Swap for a lighter task","ghost",()=>this.setState({sheet:null})]]},
+      chat:{title:"Reshuffle the plan",body:"Describe the change in plain words — \"I'm travelling Thursday\", \"week 3 is too heavy\", \"I already did payments\" — and the AI re-flows the remaining days.",
+        actions:[["Re-flow around a travel day","primary",()=>this.setState({sheet:null})],["Lighten the rest of this week","ghost",()=>this.setState({sheet:null})]]},
+      partial:{title:"Progress saved",body:"Today counts as partial. The unfinished steps move to tomorrow and your streak holds — as long as you come back.",
+        actions:[["Got it","primary",()=>this.setState({sheet:null,tab:"today"})]]}
+    };
+    const sh=s.sheet?sheets[s.sheet]:null;
+
+    return {
+      isLanding:s.screen==="landing", isAuth:s.screen==="auth", isBuilder:s.screen==="builder", isApp:s.screen==="app",
+      goLanding:this.go("landing"), goAuth:()=>this.setState({screen:"auth",authMode:"login"}),
+      goBuilder:()=>this.setState({screen:"auth",authMode:"signup"}),
+
+      sampleRows:sample.rows.map(([mark,label,meta,st])=>({mark,label,meta,
+        bg:st===2?"#1a2410":"transparent", bd:st===2?LIME:"transparent",
+        chipBg:st===1?LIME:(st===2?LIME:SURF2), chipFg:st?INK:DIM,
+        fg:st===1?MUT:(st===2?TXT:DIM), fw:st===2?"600":"400"})),
+      cycleSample:()=>this.setState(p=>({sample:p.sample+1})),
+
+      email:s.email, password:s.password, authError:s.authError,
+      onEmail:e=>this.set("email",e.target.value), onPassword:e=>this.set("password",e.target.value),
+      setLogin:()=>this.set("authMode","login"), setSignup:()=>this.set("authMode","signup"),
+      loginTabBg:s.authMode==="login"?SURF2:"transparent", loginTabFg:s.authMode==="login"?TXT:DIM,
+      signupTabBg:s.authMode==="signup"?SURF2:"transparent", signupTabFg:s.authMode==="signup"?TXT:DIM,
+      authCta:s.authMode==="login"?"Log in →":"Create account →",
+      submitAuth:()=>{
+        if(!s.email.includes("@")) return this.set("authError","Enter an email address.");
+        if(s.password.length<4) return this.set("authError","Password needs at least 4 characters.");
+        this.setState({authError:"",screen:"builder",step:1});
+      },
+
+      stepLabel:s.reviewed?"Review":"Question "+s.step+" of 4", stepPct,
+      atStep1:!s.generating&&!s.reviewed&&s.step===1,
+      atStep2:!s.generating&&!s.reviewed&&s.step===2,
+      atStep3:!s.generating&&!s.reviewed&&s.step===3,
+      atStep4:!s.generating&&!s.reviewed&&s.step===4,
+      isGenerating:s.generating, genMessage:GEN_MSGS[s.genIdx%GEN_MSGS.length],
+      atReview:s.reviewed&&!s.generating,
+      showBuilderNav:!s.generating&&!s.reviewed,
+      idea:s.idea, onIdea:e=>this.set("idea",e.target.value),
+      typeOptions, stageOptions, lengthOptions,
+      hours:s.hours, hoursLabel:s.hours+"h", onHours:e=>this.set("hours",Number(e.target.value)),
+      nextLabel:s.step===4?"Generate my plan":"Continue",
+      nextBg:canNext?LIME:SURF2, nextFg:canNext?INK:DIM, nextOpacity:canNext?"1":"0.55",
+      prevStep:()=>this.setState(p=>p.step===1?{screen:"auth"}:{step:p.step-1}),
+      nextStep:()=>{
+        if(!canNext) return;
+        if(s.step<4) return this.setState({step:s.step+1});
+        this.setState({generating:true,genIdx:0});
+        const tick=setInterval(()=>this.setState(p=>({genIdx:p.genIdx+1})),650);
+        setTimeout(()=>{clearInterval(tick);this.setState({generating:false,reviewed:true});},2600);
+      },
+      reviewSummary:(s.idea.trim()||"Your project")+" · "+(s.length===5?"1-week sprint":"20-day challenge")+" · "+s.hours+"h a day.",
+      reviewWeeks,
+      chat:s.chat.map(m=>({text:m.text,align:m.me?"flex-end":"flex-start",
+        bg:m.me?LIME:SURF2, fg:m.me?INK:TXT})),
+      chatDraft:s.chatDraft, onChatDraft:e=>this.set("chatDraft",e.target.value),
+      onChatKey:e=>{ if(e.key==="Enter") this.sendChatNow(); },
+      sendChat:()=>this.sendChatNow(),
+      commitPlan:()=>{
+        const d2=this.defs(s.length), max=d2.reduce((n,w)=>n+w.tasks.length,0);
+        const day=Math.min(s.currentDay,max);
+        this.setState({screen:"app",tab:"today",days:this.buildDays(day,d2),planDefs:d2,currentDay:day,streak:day-1});
+      },
+
+      // app
+      tabToday:s.tab==="today", tabPlan:s.tab==="plan", tabStreak:s.tab==="streak", tabTask:s.tab==="task",
+      navItems, streak:s.streak, currentDay:s.currentDay,
+      daysLeftLabel:"Day "+s.currentDay+" of "+total, daysLeft:Math.max(0,total-doneCount),
+      doneCount, nextBadgeIn:nextMark?(nextMark-doneCount):"—", hasNextBadge:!!nextMark,
+      weekTheme:((cur&&defs[cur.week])||defs[defs.length-1]||{}).title||"",
+      progressLabel:Math.round(doneCount/total*100)+"% complete",
+      progressPct:Math.round(doneCount/total*100),
+      hasToday:!!cur&&cur.status!=="done",
+      allDone:!!cur&&cur.status==="done"&&doneCount<total,
+      launched:doneCount>=total&&total>0,
+      launchLine:"You shipped "+total+" days straight. "+(s.idea.trim()||"Your product")+" is live.",
+      todayTitle:cur?cur.title:"", todayBlurb:cur?cur.blurb:"", todayHours:cur?cur.hours:"",
+      todaySubDone:cur?cur.steps.filter(x=>x.done).length:0, todaySubTotal:cur?cur.steps.length:0,
+      shipToday:()=>this.shipDay(s.currentDay),
+      openTask:()=>this.setState({tab:"task",openDay:s.currentDay}),
+      openHelp:()=>this.set("sheet","help"), openSkip:()=>this.set("sheet","skip"),
+      openChat:()=>this.set("sheet","chat"),
+      goStreak:()=>this.setState({tab:"streak",openDay:null}),
+      pullForward:()=>this.setState(p=>({currentDay:Math.min(p.days.length,p.currentDay+1),tab:"today"})),
+
+      planTitle:s.length===5?"Your sprint":"Your 20 days",
+      setWeekView:()=>this.set("planView","week"), setMonthView:()=>this.set("planView","month"),
+      weekTabBg:s.planView==="week"?SURF2:"transparent", weekTabFg:s.planView==="week"?TXT:DIM,
+      monthTabBg:s.planView==="month"?SURF2:"transparent", monthTabFg:s.planView==="month"?TXT:DIM,
+      planWeeks, gridCells, badges, streakNote:s.streak>=7?"personal best":"keep it going",
+
+      taskDay:det?det.day:"", taskTitle:det?det.title:"", taskBlurb:det?det.blurb:"",
+      taskStatusLabel:det?(det.status==="done"?"shipped":(det.day===s.currentDay?"today":"upcoming")):"",
+      taskSteps:det?det.steps.map((x,i)=>({label:x.label, mark:x.done?"✓":"",
+        bd:x.done?LIME:BD, bg:x.done?LIME:"transparent",
+        fg:x.done?MUT:TXT, deco:x.done?"line-through":"none",
+        toggle:()=>this.mutate(det.day,t=>{t.steps[i].done=!t.steps[i].done;return t;})})):[],
+      taskStepDone:det?det.steps.filter(x=>x.done).length:0, taskStepTotal:det?det.steps.length:0,
+      taskResources:[{icon:"↗",label:"Reference: the shortest version of this task"},{icon:"⌘",label:"Starter snippet you can paste"}],
+      taskIsDone:!!det&&det.status==="done", taskIsOpen:!!det&&det.status!=="done",
+      completeLabel:det&&det.steps.every(x=>x.done)?"Mark shipped ✓":"Mark shipped anyway",
+      completeBg:det&&det.steps.every(x=>x.done)?LIME:SURF2,
+      completeFg:det&&det.steps.every(x=>x.done)?INK:TXT,
+      completeTask:()=>{ if(det) this.shipDay(det.day); this.setState({tab:"today",openDay:null}); },
+      savePartial:()=>this.set("sheet","partial"),
+      backFromTask:()=>this.setState({tab:s.openDay&&s.openDay!==s.currentDay?"plan":"today",openDay:null}),
+
+      sheetOpen:!!sh, sheetTitle:sh?sh.title:"", sheetBody:sh?sh.body:"",
+      sheetActions:sh?sh.actions.map(([label,kind,run])=>({label,run,
+        fw:kind==="primary"?"600":"500",
+        bg:kind==="primary"?LIME:"transparent", fg:kind==="primary"?INK:TXT,
+        bd:kind==="primary"?LIME:BD})):[],
+      closeSheet:()=>this.set("sheet",null)
+    };
+  }
+
+  sendChatNow(){
+    const t=this.state.chatDraft.trim(); if(!t) return;
+    this.setState(p=>({chat:[...p.chat,{me:true,text:t}],chatDraft:""}));
+    setTimeout(()=>this.setState(p=>({chat:[...p.chat,{me:false,text:"Done — I moved two tasks out of week 1 and pushed the heavier build work to week 2. Launch still lands on day "+p.length+"."}]})),700);
+  }
+}
+</script>
+</body>
+</html>
