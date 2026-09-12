@@ -30,13 +30,13 @@ const mp = {
   },
   /* Accents — bold, saturated, used sparingly and at scale */
   accent: {
-    DEFAULT: "#D8FF3E", // electric lime — primary brand accent
-    press: "#C2E82F",
-    soft: "rgba(216, 255, 62, 0.12)",
+    DEFAULT: "#FF3B47", // red — primary brand accent
+    press: "#E62F3A",
+    soft: "rgba(255, 59, 71, 0.12)",
   },
   hot: {
-    DEFAULT: "#FF5A1F", // secondary accent — category eyebrows, host cues
-    soft: "rgba(255, 90, 31, 0.12)",
+    DEFAULT: "#C41E3A", // darker red — category eyebrows, host cues
+    soft: "rgba(196, 30, 58, 0.12)",
   },
   /* Semantic — answer feedback */
   correct: {
@@ -94,7 +94,7 @@ export default {
       boxShadow: {
         tile: "0 1px 0 0 rgba(255,255,255,0.04) inset",
         "tile-hover": "0 24px 60px -20px rgba(0,0,0,0.8)",
-        accent: "0 0 0 3px rgba(216,255,62,0.35)",
+        accent: "0 0 0 3px rgba(255,59,71,0.35)",
         correct: "0 0 0 3px rgba(22,224,126,0.35), 0 24px 60px -24px rgba(22,224,126,0.5)",
         wrong: "0 0 0 3px rgba(255,59,71,0.35)",
       },
